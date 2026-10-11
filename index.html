@@ -64,21 +64,20 @@
     .wx-temp{font-size:3.4rem;}
   }
 
-  /* Senaste nytt - enkel, lätt lista */
+  /* Senaste nytt - stilren textlista, inga bilder */
   .news-list-simple{display:flex;flex-direction:column;border-top:2px solid var(--black);max-width:760px;margin:0 auto;}
-  .news-item{display:grid;grid-template-columns:140px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid #e2e2e2;align-items:center;color:inherit;text-decoration:none;}
-  .news-item:first-child{padding-top:24px;}
-  .news-item-img{aspect-ratio:4/3;background-size:cover;background-position:center;border-radius:14px;}
-  .news-item .date{color:var(--green-dark);font-weight:700;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;}
-  .news-item h3{font-size:1.22rem;margin:5px 0 6px;line-height:1.2;}
+  .news-item{display:grid;grid-template-columns:130px 1fr;gap:30px;padding:28px 0;border-bottom:1px solid #e2e2e2;color:inherit;text-decoration:none;}
+  .news-item:first-child{padding-top:26px;}
+  .news-item .date{color:var(--green-dark);font-weight:700;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;padding-top:3px;}
+  .news-item h3{font-size:1.3rem;margin:0 0 8px;line-height:1.2;}
   .news-item h3:hover{text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;}
-  .news-item p{color:#555;font-size:.95rem;line-height:1.55;}
+  .news-item p{color:#555;font-size:.98rem;line-height:1.6;max-width:540px;}
   .news-more{text-align:center;margin-top:26px;}
   .news-more a{color:var(--green-dark);font-weight:700;border-bottom:2px solid var(--yellow);}
 
   @media(max-width:620px){
-    .news-item{grid-template-columns:88px 1fr;gap:16px;padding:20px 0;}
-    .news-item p{display:none;}
+    .news-item{grid-template-columns:1fr;gap:4px;padding:22px 0;}
+    .news-item .date{padding-top:0;}
   }
 </style>
 </head>
@@ -159,33 +158,29 @@
     <p class="section-sub reveal">Håll koll på vad som händer i klubben – träningar, tävlingar och annat kul.</p>
     <div class="news-list-simple reveal-stagger">
       <a class="news-item" href="nyheter.html#pasken-2026">
-        <div class="news-item-img" style="background-image:url('images/gsp/gsp-46.jpg')"></div>
+        <div class="date">2 april 2026</div>
         <div>
-          <div class="date">2 april 2026</div>
           <h3>Påsken 2026</h3>
           <p>Det finns möjlighet till träning under påsken: torsdag 16–21 samt fredag, söndag och måndag 10–16. Fredag och måndag samkörs med hyrkarten.</p>
         </div>
       </a>
       <a class="news-item" href="nyheter.html#tavlingsforare">
-        <div class="news-item-img" style="background-image:url('images/gsp/gsp-40.jpg')"></div>
+        <div class="date">28 augusti 2025</div>
         <div>
-          <div class="date">28 augusti 2025</div>
           <h3>Hej våra tävlingsförare!</h3>
           <p>Ni välkomnas till vår andra träff för säsongen, tisdagsträningen före GSP.</p>
         </div>
       </a>
       <a class="news-item" href="nyheter.html#mat-pa-traningen">
-        <div class="news-item-img" style="background-image:url('images/news-mat.jpg')"></div>
+        <div class="date">26 augusti 2025</div>
         <div>
-          <div class="date">26 augusti 2025</div>
           <h3>Mat på träningen</h3>
           <p>Nu finns det enklare mat att köpa och mikra ute vid banan.</p>
         </div>
       </a>
       <a class="news-item" href="nyheter.html#nyhet-1020">
-        <div class="news-item-img" style="background-image:url('images/start/traning-ledare.jpg')"></div>
+        <div class="date">20 mars 2025</div>
         <div>
-          <div class="date">20 mars 2025</div>
           <h3>Kart Practice Week</h3>
           <p>Träning i påsk – fem dagar på banan för den som vill köra extra mycket innan säsongen drar igång.</p>
         </div>
