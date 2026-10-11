@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Träning – Team13</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .page-banner::before{content:"";position:absolute;inset:-10px;background:url('images/hero2.jpg') center/cover;filter:blur(4px);}
+  .page-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 100%);}
+  .page-banner .container{position:relative;z-index:2;}
+  .page-banner h1{color:var(--white);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;}
+  .page-banner p{color:#f0f0f0;margin-top:8px;font-size:1.1rem;}
+
+  .season-note{background:var(--gray);border-left:4px solid var(--yellow);padding:18px 24px;border-radius:4px;margin-bottom:34px;color:#333;}
+
+  .training-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  table.hours{width:100%;border-collapse:collapse;margin-bottom:10px;}
+  table.hours td{padding:12px 4px;border-bottom:1px solid #e2e2e2;font-weight:600;}
+  table.hours td:first-child{color:#555;font-weight:500;}
+  table.hours td:last-child{text-align:right;color:var(--green-dark);}
+  .note-box{border-top:2px solid var(--yellow);padding-top:16px;margin-top:20px;font-size:.9rem;color:#555;}
+  .training-img{border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.1);}
+
+  .fees-section{margin-top:0;}
+  table.fees{width:100%;border-collapse:collapse;background:var(--white);}
+  table.fees th{background:var(--green);color:var(--white);text-align:left;padding:14px 18px;font-weight:700;}
+  table.fees td{padding:14px 18px;border-bottom:1px solid #eee;}
+  table.fees tr:nth-child(even) td{background:#fbfbfa;}
+
+  .requirements{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:10px;}
+  .req-card{border-top:2px solid var(--black);padding-top:16px;}
+  .req-card h4{margin-bottom:8px;color:var(--green-dark);}
+  .req-card p{color:#444;font-size:.95rem;}
+  @media(max-width:820px){ .training-wrap{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="badge-note">🔍 FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" >Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-banner">
+  <div class="container">
+    <h1>Träning</h1>
+    <p>Kom ut på banan och kör – alla nivåer är välkomna</p>
+  </div>
+</section>
+
+<section class="k-section">
+  <div class="container">
+    <div class="season-note">
+      Säsongen sträcker sig normalt från vecka 14 (i början av april) till vecka 44 (slutet av oktober).
+    </div>
+
+    <div class="training-wrap">
+      <div>
+        <h2 class="k-title">Träningstider</h2>
+        <table class="hours">
+          <tr><td>Tisdag</td><td>16:00–21:00</td></tr>
+          <tr><td>Torsdag</td><td>16:00–21:00</td></tr>
+          <tr><td>Söndag</td><td>10:00–16:00</td></tr>
+        </table>
+        <div class="note-box">
+          Helgträningen körs numera på söndag istället för lördag.
+        </div>
+      </div>
+      <div class="training-img">
+        <img src="images/hero2.jpg" alt="Träning på banan">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="k-section alt">
+  <div class="container">
+    <div class="fees-section">
+      <h2 class="k-title">Avgifter för träning</h2>
+      <table class="fees">
+        <tr><th>Kategori</th><th>Pris</th></tr>
+        <tr><td>Team13-medlem</td><td>Ingår i medlemskapet</td></tr>
+        <tr><td>Cadettiförare</td><td>Alltid kostnadsfritt</td></tr>
+        <tr><td>Cadettiförare, övriga klubbar</td><td>0 kr</td></tr>
+        <tr><td>Förare från KCV-klubbar</td><td>200 kr</td></tr>
+        <tr><td>Förare, övriga klubbar</td><td>300 kr</td></tr>
+        <tr><td>Träning i samband med tävling</td><td>300 kr</td></tr>
+        <tr><td>Licensierad förare utan egen bana</td><td>700 kr</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="k-section">
+  <div class="container">
+    <h2 class="k-title">Innan du kör</h2>
+    <div class="requirements">
+      <div class="req-card">
+        <h4>Giltig förarlicens</h4>
+        <p>För att träningsköra krävs en giltig förarlicens. Saknar du licens kan en tillfällig PR-licens lösas för 125 kr.</p>
+      </div>
+      <div class="req-card">
+        <h4>Uppvisa betalning</h4>
+        <p>Man behöver inte ha med sig Guldkortet – det räcker att kunna visa upp att man betalat för att träningsköra.</p>
+      </div>
+      <div class="req-card">
+        <h4>Registrering på hyrkarten</h4>
+        <p>Alla måste registrera sig på hyrkarten innan träningspasset börjar, oavsett om avgiften redan är betald.</p>
+      </div>
+      <div class="req-card">
+        <h4>Träningsvakt måste finnas på plats</h4>
+        <p>Ingen träning får genomföras om det inte finns en träningsvakt på plats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+

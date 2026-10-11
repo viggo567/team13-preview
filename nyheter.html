@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nyheter – Team13</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .news-head{background:var(--white);color:var(--black);padding:30px 0 0;position:relative;}
+  .news-head .label{color:var(--green-dark);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;}
+  .news-head h1{font-size:clamp(2rem,5vw,2.8rem);line-height:1;margin:6px 0 8px;font-weight:700;}
+  .news-head p{color:#555;max-width:520px;padding-bottom:22px;}
+  .news-head .stripes{height:8px;background:linear-gradient(180deg,var(--yellow) 0 50%,var(--green) 50% 100%);}
+
+  .featured{display:grid;grid-template-columns:1.4fr 1fr;border-bottom:1px solid #e2e2e2;}
+  .featured-img{min-height:380px;background:url('images/gsp/gsp-46.jpg') 60% center/cover;}
+  .featured-body{padding:50px 44px;display:flex;flex-direction:column;justify-content:center;background:var(--gray);}
+  .tag-latest{align-self:flex-start;background:var(--yellow);color:var(--black);font-weight:700;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;margin-bottom:18px;}
+  .meta{color:#777;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
+  .featured-body h2{font-size:clamp(1.7rem,3vw,2.3rem);margin:8px 0 16px;line-height:1.15;}
+  .featured-body p{color:#222;line-height:1.7;font-size:1.08rem;margin-bottom:6px;}
+
+  .archive-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;border-bottom:2px solid var(--black);padding-bottom:14px;margin-bottom:10px;}
+  .archive-top h2{font-size:1.6rem;}
+  .filters{display:flex;gap:22px;flex-wrap:wrap;}
+  .filters button{background:none;border:none;font-family:inherit;font-size:1rem;font-weight:600;color:#777;cursor:pointer;padding:4px 0;border-bottom:3px solid transparent;}
+  .filters button.active,.filters button:hover{color:var(--black);border-bottom-color:var(--yellow);}
+
+  .year-group{margin-top:34px;}
+  .year{font-size:2rem;font-weight:700;display:inline-block;border-bottom:4px solid var(--yellow);padding-bottom:2px;margin-bottom:6px;}
+  .post{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:30px 0;border-bottom:1px solid #d6d6d6;scroll-margin-top:110px;}
+  .post:last-child{border-bottom:none;}
+  .post-date{text-align:center;align-self:start;background:var(--black);color:var(--white);padding:12px 0 10px;border-bottom:4px solid var(--yellow);}
+  .post-date .day{display:block;font-size:2.2rem;font-weight:700;line-height:1;}
+  .post-date .month{display:block;text-transform:uppercase;font-weight:700;color:var(--yellow);letter-spacing:1px;font-size:.9rem;margin-top:4px;}
+  .post .cat{color:var(--green-dark);font-size:.8rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+  .post-title{font-size:1.6rem;line-height:1.2;margin:4px 0 12px;color:var(--black);}
+  .post-text{color:#222;font-size:1.08rem;line-height:1.7;max-width:760px;}
+  .post-text p{margin-bottom:12px;}
+  .post-text h4{font-size:1.15rem;margin-bottom:8px;}
+  .post-text ul{margin:0 0 12px 20px;}
+  .post-text blockquote{border-left:4px solid var(--yellow);padding-left:14px;margin:0 0 12px;word-break:break-all;}
+  .post-text a{color:var(--green-dark);font-weight:600;border-bottom:1px solid currentColor;}
+  .post-text figure{margin:14px 0;}
+  .post-text img{display:block;width:100%;max-width:560px;height:auto;max-height:420px;object-fit:cover;}
+  .post-text figcaption{color:#666;font-size:.9rem;margin-top:6px;}
+  .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:760px;}
+  .gallery figure{margin:14px 0 0;}
+  .gallery img{height:320px;max-width:none;}
+  .empty{display:none;padding:40px 0;color:#777;}
+
+  @media(max-width:820px){
+    .featured{grid-template-columns:1fr;}
+    .featured-img{min-height:240px;}
+    .featured-body{padding:34px 20px;}
+    .post{grid-template-columns:60px 1fr;gap:16px;padding:24px 0;}
+    .post-date .day{font-size:1.7rem;}
+    .post-date .month{font-size:.75rem;}
+    .post-title{font-size:1.35rem;}
+    .post-text{font-size:1rem;}
+    .gallery{grid-template-columns:1fr;}
+    .gallery img{height:auto;max-height:360px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="badge-note">🔍 FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" >Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+
+<section class="news-head" style="padding-bottom:0;">
+  <div class="container">
+    <span class="label">Klubbnytt</span>
+    <h1>Nyheter</h1>
+    <p>Här hittar du det senaste från Team13 – träningar, tävlingar och annat som händer i klubben.</p>
+  </div>
+  <div class="stripes"></div>
+</section>
+
+<article class="featured" id="pasken-2026">
+  <div class="featured-img" role="img" aria-label="Gokart på banan"></div>
+  <div class="featured-body">
+    <span class="tag-latest">Senaste nyhet</span>
+    <span class="meta">2 april 2026 · Träning</span>
+    <h2>Påsken 2026</h2>
+    <p>Det finns möjlighet till träning under påsken</p>
+    <p>Torsdag 16-21</p>
+    <p>Fredag 10-16</p>
+    <p>Söndag 10-16</p>
+    <p>Måndag 10-16</p>
+    <p>Fredag och måndag samkörs med hyrkarten.</p>
+  </div>
+</article>
+
+<section>
+  <div class="container">
+    <div class="archive-top">
+      <h2>Tidigare nyheter</h2>
+      <div class="filters" role="group" aria-label="Filtrera nyheter">
+        <button class="active" data-filter="alla">Alla</button>
+        <button data-filter="traning">Träning</button>
+        <button data-filter="tavling">Tävling</button>
+        <button data-filter="klubben">Klubben</button>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="year-group">
+        <h3 class="year">2025</h3>
+        <article class="post" id="tavlingsforare" data-cat="tavling">
+          <div class="post-date"><span class="day">28</span><span class="month">aug</span></div>
+          <div class="post-body">
+            <span class="cat">Tävling</span>
+            <h4 class="post-title">Hej våra tävlingsförare!</h4>
+            <div class="post-text">
+<p>Ni välkomnas till vår andra träff för säsongen kl 18.00 den 2 september, tisdagsträningen före GSP.</p>
+<p>Vi tar en liten paus från träningen och går igenom lite vad som händer här under hösten och vinter, bl a gokartskola helt nya medlemmar, gokartklubb för befintliga medlemmar, Le Mans &#8211; tävling och Mekaniker Race.</p>
+<p>Klubben bjuder på mellanmål med dryck!</p>
+<p>Anmäl på mail till <a href="mailto:info@team13.se">info@team13.se</a> senast lördag 30 augusti så vi kan beräkna fikat.</p>
+<p>Ps Vi hade tänkt dela ut lite merch, men tyvärr är leveransen lite försenad, men det kommer fram till GSP så glöm inte att hämta ut den då i samband med incheckning.</p>
+<p>Ska du inte köra GSP kommer du ändå och hämtar och säger hej! </p>
+<p>Med vänlig hälsning</p>
+<p>MedlemsKommittéen &amp; Styrelsen</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="mat-pa-traningen" data-cat="klubben">
+          <div class="post-date"><span class="day">26</span><span class="month">aug</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Mat på träningen</h4>
+            <div class="post-text">
+<p>Nu mera finns det lite enklare mat att köpa o micra ute vid banan. Perfekt när man är och kör på någon av träningarna. Kan rekommenderas efter att ha provat</p>
+<div class="gallery"><figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/08/img_0427-768x1024.jpg" alt=""></figure>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/08/img_0426-1024x768.jpg" alt=""></figure></div>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1051" data-cat="traning">
+          <div class="post-date"><span class="day">8</span><span class="month">jun</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Träningsvaktslist</h4>
+            <div class="post-text">
+<p><a href="https://team13.se/wp-content/uploads/2025/08/traningsvakt-guldkort-2025_v2.pdf" target="_blank" rel="noopener">traningsvakt-guldkort-2025_v2 (PDF)</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1031" data-cat="klubben">
+          <div class="post-date"><span class="day">14</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Länk till Team13s medlemmar – Facebookgrupp</h4>
+            <div class="post-text">
+<blockquote>
+<p><a href="https://www.facebook.com/groups/1516802525644838">https://www.facebook.com/groups/1516802525644838</a></p>
+</blockquote>
+<p>Klicka på länken för att gå med i vår medlemsgrupp på Facebook för snabbare kommunikation!</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1028" data-cat="tavling">
+          <div class="post-date"><span class="day">14</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Tävling</span>
+            <h4 class="post-title">Lunch för Team 13s tävlingsförare säsong 2025.</h4>
+            <div class="post-text">
+
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1026" data-cat="klubben">
+          <div class="post-date"><span class="day">1</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Nytt…</h4>
+            <div class="post-text">
+<p>Där är något nytt med banan i Göteborg i år.</p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/04/img_8716-1-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1020" data-cat="traning">
+          <div class="post-date"><span class="day">20</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Kart Practice Week 2025</h4>
+            <div class="post-text">
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/03/IMG_8531.jpg" alt="" /></figure>
+<p>Träning i påsk</p>
+<p>Skärtorsdag 17/4 16-21<br>Långfredag 18/4 10-16<br>Påskafton 19/4 10-16<br>Påskdagen 20/4 10-16<br>Annandag påsk 21/4 10-16</p>
+<p>Välkomna!</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-1006" data-cat="klubben">
+          <div class="post-date"><span class="day">15</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Arbetsdag</h4>
+            <div class="post-text">
+<p>Bra väder och hyggligt med folk på dagens arbetsdag</p>
+<div class="gallery"><figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/03/img_8634-1-1024x768.jpg" alt=""></figure>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2025/03/img_8635-1-1024x768.jpg" alt=""></figure></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="year-group">
+        <h3 class="year">2024</h3>
+        <article class="post" id="nyhet-995" data-cat="klubben">
+          <div class="post-date"><span class="day">8</span><span class="month">dec</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Klubbmöte</h4>
+            <div class="post-text">
+<p>Härligt mycket folk på dagens klubbmöte, som börjar strax</p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2024/12/img_7913-1-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-985" data-cat="tavling">
+          <div class="post-date"><span class="day">29</span><span class="month">aug</span></div>
+          <div class="post-body">
+            <span class="cat">Tävling</span>
+            <h4 class="post-title">GSP 2024</h4>
+            <div class="post-text">
+
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-950" data-cat="klubben">
+          <div class="post-date"><span class="day">23</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Karting on Tour kommer till Team13</h4>
+            <div class="post-text">
+<p>Den 26 maj, 27 maj och 1 juni kan du som är mellan 6 och 17 år  prova på att köra riktiga tävlingskartar.<br>Tiderna är 26 maj kl 16-20<br>27 maj kl 16-17:30 + 18:30-21:00<br>1 juni kl 08-11:00 + 12:45 &#8211; 14:00</p>
+<p>Du anmäler dig på <a href="mailto:info@team13.se">info@team13.se</a> </p>
+<p>Varmt välkommen!</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-945" data-cat="traning">
+          <div class="post-date"><span class="day">29</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Träning inställd</h4>
+            <div class="post-text">
+<p>Följande två söndagar är ordinarie träning inställd pga arbete på vår anläggning</p>
+<ul>
+<li>söndag 5 maj</li>
+<li>söndag 2 juni</li>
+</ul>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-942" data-cat="traning">
+          <div class="post-date"><span class="day">29</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Utökad torsdagsträning</h4>
+            <div class="post-text">
+<p>Ordinarie träning är utökad följande dagar:</p>
+<ul>
+<li>Kristi Himmelsfärdsdag torsdag 9 maj 2024, 10:00 &#8211; 16:00</li>
+<li>Sveriges Nationaldag torsdag 6 juni 2024, 10:00 &#8211; 16:00</li>
+</ul>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-939" data-cat="traning">
+          <div class="post-date"><span class="day">29</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Inställda söndagsträningar 2024</h4>
+            <div class="post-text">
+<p>Följande träningstillfällen är inställda</p>
+<ul>
+<li>söndag 9 juni 2024 (tävling KCV)</li>
+<li>söndag 8 september 2024 (tävling GSP)</li>
+</ul>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-928" data-cat="klubben">
+          <div class="post-date"><span class="day">24</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Arbetsdagar</h4>
+            <div class="post-text">
+<p>Söndagarna den 5 maj och 2 juni har vi arbetsdagar på banan så då är banan STÄNGD för träning. Välkommen att anmäla dig till arbetsdagarna på Aktivitetswebben. Det krävs inga speciella färdigheter, bara lite allmän händighet med en målarpensel, spade eller kratta.  Har du svetskunskaper eller kan elinstallation är du också välkommen.</p>
+<p>Anläggningsgruppen</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-910" data-cat="traning">
+          <div class="post-date"><span class="day">25</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Kart Practice Week tillbaka! Påsköppet för träning</h4>
+            <div class="post-text">
+<h4>Påsköppet &#8211; Träning</h4>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2024/03/image0.jpeg" alt="" /></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-864" data-cat="klubben">
+          <div class="post-date"><span class="day">29</span><span class="month">feb</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Årsstämma!</h4>
+            <div class="post-text">
+<p>Nu närmar sig säsongen med stormsteg och du ligger väl i startgroparna. <br>Först skall vi ha en årsstämma&nbsp;söndagen den 24 Mars ute vid banan i Torslanda. <br>Vi startar med kaffe&nbsp;kl. 15.30 för att sedan avhålla stämman med start klockan 16. <br>Efteråt bjuder vi de som vill på hyrkartkörning. </p>
+<p>Glöm inte att betala din medlemsavgift så har du rösträtt på stämman. </p>
+<p>Alla som betalar medlemsavgift kommer i år få en T-shirt med T13 logga på.&nbsp;</p>
+<p>VÄLKOMMEN!</p>
+<p>Med vänlig hälsning,<br>Peter Liljeros, ordf.</p>
+<p><a href="https://team13.se/wp-content/uploads/2024/02/Kallelse-till-ordinarie-Arsstamma-i-GKRC-Team-13-2023.pdf" target="_blank" rel="noreferrer noopener">Kallelse hittar du här</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-856" data-cat="klubben">
+          <div class="post-date"><span class="day">5</span><span class="month">feb</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">LEmans</h4>
+            <div class="post-text">
+<p>Team 13 medlemsaktivitet på Onsdag 7/2 anmälan <a href="mailto:info@team13.se">info@team13.se</a></p>
+<p>(se även medlemsmail daterat  2024-01-28)</p>
+<p>Dubbelkolla era uppgifter i LoTs om ni saknar mail från klubben<br>Man loggar in på LoTs. Går in på Min profil/personuppgifter/Ändra personuppgifter. </p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-853" data-cat="klubben">
+          <div class="post-date"><span class="day">30</span><span class="month">jan</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Team 13 medlemsaktivitet</h4>
+            <div class="post-text">
+<p><strong> I morgon 30/1 kör vi Team13 &#8211; Le Mans Race för klubbens medlemmar</strong></p>
+<p>Se info i medlemsmail </p>
+<p>Anmälan till <a href="mailto:info@team13.se">info@team13.se</a> eller &nbsp;031-56 29 60</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-819" data-cat="traning">
+          <div class="post-date"><span class="day">19</span><span class="month">jan</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Nya träningstider</h4>
+            <div class="post-text">
+<p>Maa att vi fått ett nytt miljötillstånd har vi fått utökade träningstider. Den största skillnaden är att lördagsträningen flyttas till söndag, tiden på tisdag och torsdag blir 16-21, vi får köra på röda dagar och i Juli månad. Vi kommer dessutom kunna köra hela påskhelgen som en kick-off på säsongen. Så här kommer det att se ut.  </p>
+<p>Tisdag 16-21, Torsdag 16-21, Söndag 10-16</p>
+<p>Dessutom 28/3 10-21, 29/3 10-16, 30/3 10-16, 1/4 10-16, 9/5 10-16, 6/6 10-16</p>
+<p>Träning utgår pga tävling 9/6 och 8/9</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-814" data-cat="klubben">
+          <div class="post-date"><span class="day">19</span><span class="month">jan</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Ny medlemsavgift</h4>
+            <div class="post-text">
+<p>Enligt beslut på stämman förra året höjs medlemsavgiften med 50:- för alla.</p>
+<p><a href="https://team13.se/?page_id=451">Se närmare information på denna länk</a></p>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="year-group">
+        <h3 class="year">2023</h3>
+        <article class="post" id="nyhet-741" data-cat="klubben">
+          <div class="post-date"><span class="day">3</span><span class="month">jul</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Stort tack</h4>
+            <div class="post-text">
+<p>Vill bara tacka alla som ställde upp vid Karting on Tour i Göteborg, särskilt Christoffer Ydrefalk, Jim Abrahamsson, Martin Zackrisson och Peter Naperotti. Utan er hade detta inte varit möjligt.<br>Vi hade bra med deltagare på måndag (21) och tisdag (26). Onsdag har jag inga siffror på än. Skulle bli förvånad om vi inte av dessa skulle kunna rekrytera minst tio nya medlemmar eller fler. De flesta angav att de var intresserade av licenskurs (Gokartskolan).<br>Tack också till tränande medlemmar på tisdagen som släppte fram KoT utan diskussion.</p>
+<p>/Peter Liljeros</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-728" data-cat="klubben">
+          <div class="post-date"><span class="day">10</span><span class="month">jun</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Prova karting gratis!</h4>
+            <div class="post-text">
+<p><strong>Karting on Tour kommer till Göteborg</strong>. Måndag &#8211; onsdag den 19-21 juni (vecka 25), klockan 16:00-20:00, har du som är mellan 6 och 17 år möjlighet att gratis prova på tävlingsformen av gokart på Göteborg Karting Ring i Torslanda. All utrustning finns att låna, ta bara med dig ett par bra skor.</p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2023/06/IMG_2240-729x1024.jpg" alt="" /></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-700" data-cat="traning">
+          <div class="post-date"><span class="day">3</span><span class="month">jun</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Träning KCV</h4>
+            <div class="post-text">
+<p>Många som tränar inför morgondagens KCV. Fint väder är det.</p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2023/06/img_2199-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-697" data-cat="traning">
+          <div class="post-date"><span class="day">30</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Tisdag inför KCV</h4>
+            <div class="post-text">
+<p>Stor uppslutning på dagens träning. Lär ju bero på KCV-tävlingen till helgen </p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2023/05/img_2143-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-694" data-cat="traning">
+          <div class="post-date"><span class="day">28</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Träning</span>
+            <h4 class="post-title">Träning i Lidköping</h4>
+            <div class="post-text">
+<p>Blev träning i Lidköping idag. Bra bana som rekommenderas.</p>
+<div class="gallery"><figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2023/05/img_2131-1024x768.jpg" alt=""><figcaption>Fint väder </figcaption></figure>
+<p>Tyvärr gick ena bulten till bakbumpern av, inne i ramen, på andra passet, så det blev till att åka hem igen</p>
+<figure><img loading="lazy" src="https://team13.se/wp-content/uploads/2023/05/img_2130-1024x768.jpg" alt=""><figcaption>Bussningen fanns kvar i varje fall </figcaption></figure></div>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-679" data-cat="klubben">
+          <div class="post-date"><span class="day">24</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Välkommen till klubbens nya hemsida</h4>
+            <div class="post-text">
+<p>Från och med idag har Team13 en ny hemsida. Innehållet är än så länge detsamma, strukturerat på samma sätt som den gamla sidan.</p>
+<p>För klubbmedlemmar kan vi rekommendera att ansöka om ett konto. Görs genom att klicka på &#8221;Registrera&#8221; här nere under inloggningsrutan.</p>
+<p><a href="https://team13.se/wp-content/uploads/2023/05/one_page-v2.pdf" target="_blank" rel="noreferrer noopener">En kort beskrivning av sidan finns här</a>.</p>
+<p>Lite som vanligt, så har vi några tekniska bekymmer just nu, men de påverkar idag bara ny funktion, så kommer förmodligen inte märkas så mycket innan problemen är lösta.</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-664" data-cat="tavling">
+          <div class="post-date"><span class="day">5</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Tävling</span>
+            <h4 class="post-title">Kart Cup Väst i Göteborg 4 juni</h4>
+            <div class="post-text">
+<p>Anmälan till KCV tävlingen i Göteborg den 4 juni har nu öppnat i <a href="http://lots.sbf.se" target="_blank" rel="noreferrer noopener">LOTS</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-662" data-cat="klubben">
+          <div class="post-date"><span class="day">5</span><span class="month">maj</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Arbetsdagar</h4>
+            <div class="post-text">
+<p>Anläggningskommittén bjuder in till arbetsdag för att förbättra anläggningen. Handlar om snickeri, målning mm. Finns det någon elektriker finns det lite elarbeten att göra också.<br><strong>Söndag 21 maj (v 20) och söndag 28 maj (v 21)</strong><br>Samling kl.10 så kör vi till kl 15 med lunchavbrott. Tag med oömma kläder och arbetshandskar.<br>Anmäl dig på <a href="https://macke.eu.pythonanywhere.com/frontend/home" target="_blank" rel="noreferrer noopener">Aktivitetswebben</a></p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-657" data-cat="klubben">
+          <div class="post-date"><span class="day">16</span><span class="month">apr</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Värt att kolla på din DD2</h4>
+            <div class="post-text">
+<p>Ett tips på en enkel kontroll som kan ha stort värde:</p>
+<p>kontrollera kabelskorna under gummihatten, de kan (kommer) med tiden vibrera sönder.</p>
+<figure><img loading="lazy" src="https://bjorkeroth.com/wp-content/uploads/2023/04/210717-16.53.52_-1024x768.jpg" alt="" /></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-651" data-cat="klubben">
+          <div class="post-date"><span class="day">29</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Årsmöte 2023</h4>
+            <div class="post-text">
+<p>Årsmöte för klubben och GGC pågår just nu. Så här långt har det gått bra</p>
+<figure><img loading="lazy" src="https://bjorkeroth.com/wp-content/uploads/2023/03/img_1450-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-646" data-cat="klubben">
+          <div class="post-date"><span class="day">29</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Ny hemsida</h4>
+            <div class="post-text">
+<p>En kort sammanfattning av de viktigaste förändringarna på den nya hemsidan <a href="https://bjorkeroth.com/wp-content/uploads/2023/05/one_page-v2.pdf">finns att läsa här</a>.</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-596" data-cat="klubben">
+          <div class="post-date"><span class="day">18</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Dokumentation för hemsidan</h4>
+            <div class="post-text">
+<p>En första version av dokumentation för hur man uppdaterar hemsidan med inlägg, från webbläsare eller via mobil-appen, finns nu på demo-siten. Hittas på medlems-sidan, som finns som meny-val, under &#8221;Klubben&#8221; (syns dock bara för inloggade).</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-593" data-cat="klubben">
+          <div class="post-date"><span class="day">15</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Styrelsemöte</h4>
+            <div class="post-text">
+<p>Visar hemsidan för styrelsen </p>
+<figure><img loading="lazy" src="https://bjorkeroth.com/wp-content/uploads/2023/03/img_1396-1024x768.jpg" alt=""></figure>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-576" data-cat="klubben">
+          <div class="post-date"><span class="day">6</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Kläder med Team13-logga</h4>
+            <div class="post-text">
+<p>Visste du att det finns kläder med Team13-logga på att köpa?<br>Följ <a href="https://webb.mercus.se/sv/kodkund/ggc" target="_blank" rel="noreferrer noopener">denna länk till mercus.se</a> och ange där &#8221;Team13&#8221; som Anslutningskod<br>Klicka sedan på Produkter så ser du vad som erbjuds</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-574" data-cat="klubben">
+          <div class="post-date"><span class="day">6</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Årsstämma 2023</h4>
+            <div class="post-text">
+<p>Årsstämman har vi i år lagt på en onsdag den 29 mars, separat kallelse kommer.<br>​​​​​​​Boka in dagen i din kalender redan nu så vi får en bra uppslutning.</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-572" data-cat="klubben">
+          <div class="post-date"><span class="day">6</span><span class="month">mar</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Sommarjobba i restaurangen</h4>
+            <div class="post-text">
+<p>Vi kommer som förra sommaren ha restaurangen öppen 15/6 &#8211; 30/9.<br>Vi söker någon som kan jobba i restaurangen. Är du intresserad kan du kontakta platschef Henrik Jakobsson.<br>Har du vana av att jobba i kök eller restaurang är det ett plus men inget krav.</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-392" data-cat="klubben">
+          <div class="post-date"><span class="day">26</span><span class="month">feb</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Plats i garagecontainer</h4>
+            <div class="post-text">
+<p>Hej alla ni som hyr plats för er kart i container.<br>Den plats ni blivit tilldelad och tecknat kontrakt för är den plats där er kart och utrustning skall förvaras.<br>Även om platsen bredvid, över eller under står tom betyder inte det att det är fritt fram att använda dessa, de är med stor sannolikhet uthyrda fast det för tillfället inte står ngt material där.<br>Vi, personalen ute vid banan får återkommande samtal om att kartar eller prylar ligger på deras plats, prylar som vi får städa undan och ta hand om tills dess rätta ägare dyker upp.<br>Vänligen respektera detta och var så snälla och hjälps åt att hålla ordningen i de containers ni har förvaring i.</p>
+<p>Vänligen Henrik med personal.</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-372" data-cat="klubben">
+          <div class="post-date"><span class="day">26</span><span class="month">feb</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Team13 aktivitetslista</h4>
+            <div class="post-text">
+<p>För er som tänkt skaffa Guldkort måste ni först sätt upp er på aktivitetslistan.<br>Detta gör ni genom att:<br>Klicka på länken nedan<br>Skapa ett konto<br>Välj aktiviteter som passar er<br>Köp sedan guldkort.</p>
+<p>AKTIVITETSLISTAN</p>
+<p>Läs mer om Guldkort här: Guldkort</p>
+            </div>
+          </div>
+        </article>
+        <article class="post" id="nyhet-370" data-cat="klubben">
+          <div class="post-date"><span class="day">26</span><span class="month">feb</span></div>
+          <div class="post-body">
+            <span class="cat">Klubben</span>
+            <h4 class="post-title">Mailutskick med information</h4>
+            <div class="post-text">
+<p>På senare tiden har vi börjat skicka ut mail med olika sorters info och annat bra att veta till våra klubbmedlemmar.<br>​​​​​​​<br>Vi har fått höra att det är ett antal som ej fått dessa mail.<br>Detta kan bero på många olika anledningar, men i många fall kan det bero på utdaterade mailadresser i systemet eller liknande.</p>
+<p>Om ni ej har fått något mail kontakta oss via facebook, mail (<a href="mailto:info@team13.se">info@team13.se</a>) eller telefon 031-56 29 60 så kan vi se över vad problemet ligger.</p>
+<p>Tack på förhand!</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="empty">Inga nyheter i den här kategorin ännu.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+
+  var posts = document.querySelectorAll('.post');
+  var groups = document.querySelectorAll('.year-group');
+  var empty = document.querySelector('.empty');
+  document.querySelectorAll('.filters button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.filters button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter, shown = 0;
+      posts.forEach(function(p){
+        var match = f === 'alla' || p.dataset.cat === f;
+        p.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      groups.forEach(function(g){
+        var any = Array.prototype.some.call(g.querySelectorAll('.post'), function(p){ return p.style.display !== 'none'; });
+        g.style.display = any ? '' : 'none';
+      });
+      empty.style.display = shown ? 'none' : 'block';
+    });
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+

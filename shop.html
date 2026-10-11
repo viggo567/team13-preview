@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop – Team13</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .page-banner::before{content:"";position:absolute;inset:-10px;background:url('images/hero4.jpg') center/cover;filter:blur(4px);}
+  .page-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 100%);}
+  .page-banner .container{position:relative;z-index:2;}
+  .page-banner h1{color:var(--white);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;}
+  .page-banner p{color:#f0f0f0;margin-top:8px;font-size:1.1rem;}
+
+  .shop-intro{max-width:640px;margin:0 auto 50px;text-align:center;color:#444;line-height:1.7;}
+  .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:50px;border-top:1px solid #e6e6e6;}
+  .product-card{font-family:'Montserrat',Arial,sans-serif;padding:40px 30px 44px;border-bottom:1px solid #e6e6e6;text-decoration:none !important;color:#333;text-align:center;}
+  .product-card img{width:100%;height:270px;object-fit:contain;display:block;margin-bottom:56px;}
+  .product-card h4{font-family:inherit;font-size:1rem;font-weight:600;line-height:1.4;color:#333;margin-bottom:28px;}
+  .product-card .desc{color:#444;font-size:.9rem;font-weight:400;line-height:1.5;margin-bottom:30px;}
+  .product-card .price-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .product-card .from{color:#a33;font-size:.85rem;font-weight:600;}
+  .product-card .price{font-size:1.2rem;font-weight:700;color:#333;}
+  .product-card .tag{background:#a33;color:var(--white);font-size:.82rem;font-weight:500;padding:2px 7px;border-radius:2px;}
+  .product-card .tag.campaign{background:#8bc542;color:var(--black);}
+  .product-card .vat{color:#444;font-size:.82rem;}
+  .product-card:not(:nth-child(3n)){border-right:1px solid #e6e6e6;}
+  @media(max-width:980px){
+    .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .product-card:not(:nth-child(3n)){border-right:none;}
+    .product-card:nth-child(odd){border-right:1px solid #e6e6e6;}
+  }
+  @media(max-width:600px){
+    .product-grid{grid-template-columns:1fr;}
+    .product-card:nth-child(odd){border-right:none;}
+    .product-card{padding:34px 16px 38px;}
+    .product-card img{height:240px;margin-bottom:40px;}
+    .product-card h4,.product-card .desc{margin-bottom:24px;}
+  }
+  .shop-cta{background:var(--green);border-radius:6px;padding:44px 30px;text-align:center;color:var(--white);}
+  .shop-cta h2{font-size:1.6rem;margin-bottom:12px;}
+  .shop-cta p{color:#eaf5ec;margin-bottom:22px;max-width:520px;margin-left:auto;margin-right:auto;}
+</style>
+</head>
+<body>
+
+<div class="badge-note">FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" >Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-banner">
+  <div class="container">
+    <h1>Shop</h1>
+    <p>Klubbkläder och profilprodukter från Team13</p>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width:1280px;">
+    <p class="shop-intro">Vår klubbshop drivs tillsammans med Mercus Yrkeskläder, där du hittar t-shirts, jackor, kepsar och overaller profilerade med Team13:s logga. Perfekt för dig som vill synas på och utanför banan.</p>
+
+    <div style="text-align:center;margin-bottom:50px;">
+      <a href="https://webb.mercus.se/sv/produkter" target="_blank" rel="noopener" class="btn yellow">Till klubbshoppen</a>
+    </div>
+
+    <div class="product-grid">
+      <a href="https://webb.mercus.se/sv/produkt/generella/jackor/jacka-mountain-1906274-9990" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-jacka-mountain.png" alt="Jacka Mountain – Team13">
+        <h4>Jacka Mountain 1906274 Black</h4>
+        <div class="desc">Craft - Vindtät - Vattenavvisande</div>
+        <div class="price-row">
+          <span class="price">1 825 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/fritidsklader/regnjacka-lr8018-XX07" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-regnjacka-lr8018.png" alt="Regnjacka LR8018 – Team13">
+        <h4>Regnjacka LR8018 Svart</h4>
+        <div class="desc">Lyngsoe - 125cm lång - Fast huva</div>
+        <div class="price-row">
+          <span class="price">812,50 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/jackor/jacka-fodrad-8101-0404" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-jacka-fodrad.png" alt="Jacka Fodrad 8101 – Team13">
+        <h4>Jacka Fodrad 8101 Svart/Svart</h4>
+        <div class="desc">Snickers Workwear - 37.5® isolering - Vattenavvisande</div>
+        <div class="price-row">
+          <span class="price">1 075 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/ovriga-overdelar/vast-fodrad-4512-0404" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-vast-fodrad.png" alt="Väst Fodrad 4512 – Team13">
+        <h4>Väst Fodrad 4512 Svart/Svart</h4>
+        <div class="desc">Snickers Workwear - 37.5® isolering</div>
+        <div class="price-row">
+          <span class="price">888 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/jackor/sweatshirt-hel-zip-unify-1909134-9990" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-sweatshirt-unify.png" alt="Sweatshirt Hel Zip Unify – Team13">
+        <h4>Sweatshirt Hel Zip Unify 1909134 Black</h4>
+        <div class="desc">Craft - Återvunnen polyester - Hög komfort</div>
+        <div class="price-row">
+          <span class="price">812,50 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/t-shirt/pike-premium-028240-XX99" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-pike-premium.png" alt="Piké Premium – Team13">
+        <h4>Piké Premium 028240 Svart</h4>
+        <div class="desc">Clique - Stretch - Bra passform</div>
+        <div class="price-row">
+          <span class="price">306,25 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/t-shirt/pike-advantage-354418-XX99" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-pike-advantage.png" alt="Piké Advantage – Team13">
+        <h4>Piké Advantage 354418 Black</h4>
+        <div class="desc">Cutter &amp; Buck - DryTec - Stretch</div>
+        <div class="price-row">
+          <span class="from">Från</span>
+          <span class="price">498,75 SEK</span>
+          <span class="tag campaign">Kampanjpris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/t-shirt/pik-jr-kelowna-354414-XX99" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-pike-jr-kelowna.png" alt="Piké Jr Kelowna – Team13">
+        <h4>Piké Jr Kelowna 354414 Svart</h4>
+        <div class="desc">Cutter &amp; Buck - Junior - Bra fukttransport</div>
+        <div class="price-row">
+          <span class="price">350 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/t-shirt/t-shirt-ts13-9900" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-tshirt-ts13.png" alt="T-shirt TS13 – Team13">
+        <h4>T-shirt TS13 Svart</h4>
+        <div class="desc">Texstar - Modern passform - Ärmficka</div>
+        <div class="price-row">
+          <span class="from">Från</span>
+          <span class="price">106,25 SEK</span>
+          <span class="tag campaign">Kampanjpris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/trojor/t-shirt/t-shirt-lang-arm-ts17-9900" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-tshirt-langarm-ts17.png" alt="T-shirt Lång Ärm TS17 – Team13">
+        <h4>T-shirt Lång Ärm TS17 Svart</h4>
+        <div class="desc">Texstar - Stretch - Långärmad</div>
+        <div class="price-row">
+          <span class="from">Från</span>
+          <span class="price">198,75 SEK</span>
+          <span class="tag campaign">Kampanjpris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/byxor-shorts/pirat-byxor/shorts-fs12-9900" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-shorts-fs12.png" alt="Shorts FS12 – Team13">
+        <h4>Shorts FS12 Svart</h4>
+        <div class="desc">Texstar - Stretch - Bekväma</div>
+        <div class="price-row">
+          <span class="price">744 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+      <a href="https://webb.mercus.se/sv/produkt/generella/byxor-shorts/byxor/byxa-fp38-9900" target="_blank" rel="noopener" class="product-card">
+        <img src="images/shop-byxa-fp38.png" alt="Byxa FP38 – Team13">
+        <h4>Byxa FP38 Svart</h4>
+        <div class="desc">Texstar - Stretch - Service</div>
+        <div class="price-row">
+          <span class="price">863 SEK</span>
+          <span class="tag">Avtalspris</span>
+        </div>
+        <div class="vat">inkl. moms</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
+
+
+

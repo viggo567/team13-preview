@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team13 – Göteborg Karting &amp; Racing Club</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Hero slideshow - unique to home page */
+  .hero{position:relative;height:min(105vh,900px);min-height:600px;overflow:hidden;}
+  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 5s ease-in-out;}
+  .hero-slide.active{opacity:1;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.42) 38%,rgba(0,0,0,0) 68%),linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 35%);}
+  .hero-ground-fade{position:absolute;left:0;right:0;bottom:0;height:260px;z-index:3;pointer-events:none;
+    background:linear-gradient(180deg,rgba(90,90,90,0) 0%,rgba(85,85,85,.35) 40%,rgba(80,80,80,.6) 65%,rgba(250,250,250,.92) 88%,var(--white) 100%);}
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease-out,transform .8s ease-out;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-stagger.visible .card:nth-child(1){transition-delay:.05s;}
+  .reveal-stagger.visible .card:nth-child(2){transition-delay:.2s;}
+  .reveal-stagger.visible .card:nth-child(3){transition-delay:.35s;}
+  .reveal-stagger .card{opacity:0;transform:translateY(36px);transition:opacity .7s ease-out,transform .7s ease-out;}
+  .reveal-stagger.visible .card{opacity:1;transform:translateY(0);}
+  .hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;text-align:left;padding:0 6vw 210px;}
+  .hero-text{max-width:560px;border-left:4px solid var(--yellow);padding-left:22px;}
+  .hero-content h1{font-size:clamp(2.1rem,5.5vw,3.4rem);font-weight:700;margin-bottom:14px;color:var(--white);}
+  .hero-content h1 span{color:var(--yellow) !important;}
+  .hero-content p{font-size:1.15rem;margin:0 0 26px;color:#eee;max-width:480px;}
+  .hero-text .btn.outline{border-color:var(--white);color:var(--white);}
+  .hero-text .btn.outline:hover{background:var(--white);color:var(--black);}
+  .scroll-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;color:var(--black);font-size:1.6rem;animation:bounce 2s infinite;}
+  .photo-credit{position:absolute;top:14px;right:18px;z-index:4;color:rgba(255,255,255,.85);font-size:.75rem;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.7);}
+  .hero-wave{position:absolute;bottom:-1px;left:0;width:100%;height:70px;z-index:3;}
+  @keyframes bounce{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+  /* Weather at the track */
+  .weather{background:var(--gray);border-top:1px solid #e3e4e0;}
+  .wx{display:grid;grid-template-columns:minmax(260px,1fr) 2fr;gap:56px;align-items:center;max-width:980px;margin:0 auto;}
+  .wx-now{display:flex;align-items:center;gap:22px;}
+  .wx-icon svg{width:96px;height:96px;display:block;}
+  .wx-temp{font-size:4.2rem;font-weight:700;line-height:1;}
+  .deg{font-family:Arial,sans-serif;font-weight:400;font-size:.8em;margin-left:1px;}
+  .wx-desc{font-size:1.35rem;font-weight:700;margin-top:6px;}
+  .wx-status{display:flex;align-items:center;gap:8px;margin-top:8px;font-weight:600;color:#444;}
+  .wx-status::before{content:"";width:10px;height:10px;background:var(--green);}
+  .wx-status.wet::before{background:#1f6fb2;}
+  .wx-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--black);}
+  .wx-grid div{padding:16px 4px 14px;border-bottom:1px solid #dcddd9;}
+  .wx-grid dt{font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#777;}
+  .wx-grid dd{font-size:1.45rem;font-weight:700;margin-top:4px;white-space:nowrap;}
+  .wx-grid dd small{display:block;font-size:.95rem;font-weight:600;color:#555;margin-top:2px;}
+  .wx-arrow{width:18px;height:18px;display:inline-block;vertical-align:-1px;margin-right:6px;transition:transform .4s;}
+  .wx-foot{text-align:center;margin-top:30px;font-size:.9rem;color:#666;}
+  .wx-foot a{color:var(--green-dark);font-weight:700;border-bottom:2px solid var(--yellow);}
+  @media(max-width:820px){
+    .wx{grid-template-columns:1fr;gap:28px;}
+    .wx-now{justify-content:center;}
+    .wx-grid{grid-template-columns:repeat(2,1fr);}
+    .wx-icon svg{width:76px;height:76px;}
+    .wx-temp{font-size:3.4rem;}
+  }
+
+  /* Senaste nytt - enkel, lätt lista */
+  .news-list-simple{display:flex;flex-direction:column;border-top:2px solid var(--black);max-width:760px;margin:0 auto;}
+  .news-item{display:grid;grid-template-columns:140px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid #e2e2e2;align-items:center;color:inherit;text-decoration:none;}
+  .news-item:first-child{padding-top:24px;}
+  .news-item-img{aspect-ratio:4/3;background-size:cover;background-position:center;border-radius:14px;}
+  .news-item .date{color:var(--green-dark);font-weight:700;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;}
+  .news-item h3{font-size:1.22rem;margin:5px 0 6px;line-height:1.2;}
+  .news-item h3:hover{text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;}
+  .news-item p{color:#555;font-size:.95rem;line-height:1.55;}
+  .news-more{text-align:center;margin-top:26px;}
+  .news-more a{color:var(--green-dark);font-weight:700;border-bottom:2px solid var(--yellow);}
+
+  @media(max-width:620px){
+    .news-item{grid-template-columns:88px 1fr;gap:16px;padding:20px 0;}
+    .news-item p{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="badge-note">🔍 FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" class="active">Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hem">
+  <div class="hero-slide active" style="background-image:url('images/gsp/gsp-01.jpg')"></div>
+  <div class="hero-slide"></div>
+  <span class="photo-credit">Foto: Marcus Bjärneroth</span>
+  <div class="hero-overlay"></div>
+  <div class="hero-ground-fade"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Välkommen till <span>Team13</span></h1>
+      <p>Göteborgs Gokartcenters klubb för dig som älskar gokart – från nybörjarträning till tävling på högsta nivå.</p>
+      <div>
+        <a href="traning.html" class="btn">Se träningstider</a>
+        <a href="kontakt.html" class="btn outline">Bli medlem</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">⌄</div>
+</section>
+
+<section id="nyheter">
+  <div class="container">
+    <h2 class="section-title reveal">Senaste nytt<span class="bar"></span></h2>
+    <p class="section-sub reveal">Håll koll på vad som händer i klubben – träningar, tävlingar och annat kul.</p>
+    <div class="news-list-simple reveal-stagger">
+      <a class="news-item" href="nyheter.html#pasken-2026">
+        <div class="news-item-img" style="background-image:url('images/gsp/gsp-46.jpg')"></div>
+        <div>
+          <div class="date">2 april 2026</div>
+          <h3>Påsken 2026</h3>
+          <p>Det finns möjlighet till träning under påsken: torsdag 16–21 samt fredag, söndag och måndag 10–16. Fredag och måndag samkörs med hyrkarten.</p>
+        </div>
+      </a>
+      <a class="news-item" href="nyheter.html#tavlingsforare">
+        <div class="news-item-img" style="background-image:url('images/gsp/gsp-40.jpg')"></div>
+        <div>
+          <div class="date">28 augusti 2025</div>
+          <h3>Hej våra tävlingsförare!</h3>
+          <p>Ni välkomnas till vår andra träff för säsongen, tisdagsträningen före GSP.</p>
+        </div>
+      </a>
+      <a class="news-item" href="nyheter.html#mat-pa-traningen">
+        <div class="news-item-img" style="background-image:url('images/news-mat.jpg')"></div>
+        <div>
+          <div class="date">26 augusti 2025</div>
+          <h3>Mat på träningen</h3>
+          <p>Nu finns det enklare mat att köpa och mikra ute vid banan.</p>
+        </div>
+      </a>
+      <a class="news-item" href="nyheter.html#nyhet-1020">
+        <div class="news-item-img" style="background-image:url('images/start/traning-ledare.jpg')"></div>
+        <div>
+          <div class="date">20 mars 2025</div>
+          <h3>Kart Practice Week</h3>
+          <p>Träning i påsk – fem dagar på banan för den som vill köra extra mycket innan säsongen drar igång.</p>
+        </div>
+      </a>
+    </div>
+    <div class="news-more"><a href="nyheter.html">Se alla nyheter →</a></div>
+  </div>
+</section>
+
+<section id="vader" class="weather">
+  <div class="container">
+    <h2 class="section-title">Vädret vid banan<span class="bar"></span></h2>
+    <p class="section-sub">Just nu på Göteborgs Gokartcenter, Bulyckevägen 20.</p>
+    <div class="wx">
+      <div class="wx-now">
+        <div class="wx-icon" id="wx-icon"></div>
+        <div>
+          <div class="wx-temp" id="wx-temp">–</div>
+          <div class="wx-desc" id="wx-desc">Hämtar väder …</div>
+          <div class="wx-status" id="wx-status" hidden></div>
+        </div>
+      </div>
+      <dl class="wx-grid">
+        <div><dt>Känns som</dt><dd id="wx-feels">–</dd></div>
+        <div><dt>Vind</dt><dd id="wx-wind">–</dd></div>
+        <div><dt>Vindbyar</dt><dd id="wx-gust">–</dd></div>
+        <div><dt>Nederbörd</dt><dd id="wx-precip">–</dd></div>
+        <div><dt>Regnrisk nästa timme</dt><dd id="wx-pop">–</dd></div>
+        <div><dt>Luftfuktighet</dt><dd id="wx-hum">–</dd></div>
+      </dl>
+    </div>
+    <p class="wx-foot"><span id="wx-updated"></span>Väderdata: Open-Meteo · <a href="https://www.smhi.se/vader/prognoser-och-varningar/vaderprognos/q/G%C3%B6teborg/2711537" target="_blank" rel="noopener">Se hela prognosen hos SMHI</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  // Always start at the top on reload
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+  window.scrollTo(0,0);
+
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+  // Hero slideshow crossfade
+  // Two layers alternate; only the next image is preloaded to keep the page light
+  // Drone shot 01 always opens; the other two drone shots (02, 03) land at random positions, never right after 01 or next to each other
+  const order = Array.from({length:55}, (_, i) => i + 4);
+  [2, 3].forEach(n => {
+    let pos;
+    do { pos = 1 + Math.floor(Math.random() * order.length); }
+    while ([order[pos-1], order[pos]].some(v => v === 2 || v === 3));
+    order.splice(pos, 0, n);
+  });
+  const heroImgs = [1, ...order].map(n => `images/gsp/gsp-${String(n).padStart(2,'0')}.jpg`);
+  const slides = document.querySelectorAll('.hero-slide');
+  const preload = src => { new Image().src = src; };
+  let imgIdx = 0, front = 0;
+  preload(heroImgs[1]);
+  setInterval(()=>{
+    imgIdx = (imgIdx + 1) % heroImgs.length;
+    const back = slides[1 - front];
+    back.style.backgroundImage = `url('${heroImgs[imgIdx]}')`;
+    slides[front].classList.remove('active');
+    back.classList.add('active');
+    front = 1 - front;
+    preload(heroImgs[(imgIdx + 1) % heroImgs.length]);
+  }, 14000);
+
+  // Scroll reveal animations
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  revealEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight){
+      el.classList.add('visible');
+    } else {
+      observer.observe(el);
+    }
+  });
+</script>
+<script>
+  // Current weather at the track (Open-Meteo, no API key), refreshed every 10 minutes
+  (function(){
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=57.7198&longitude=11.8144'
+      + '&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day'
+      + '&hourly=precipitation_probability&forecast_hours=2&wind_speed_unit=ms&timezone=Europe%2FStockholm';
+    const codes = {0:['Klart','clear'],1:['Mestadels klart','partly'],2:['Halvklart','partly'],3:['Mulet','cloud'],
+      45:['Dimma','fog'],48:['Dimma','fog'],51:['Lätt duggregn','rain'],53:['Duggregn','rain'],55:['Kraftigt duggregn','rain'],
+      56:['Underkylt duggregn','rain'],57:['Underkylt duggregn','rain'],61:['Lätt regn','rain'],63:['Regn','rain'],65:['Kraftigt regn','rain'],
+      66:['Underkylt regn','rain'],67:['Underkylt regn','rain'],71:['Lätt snöfall','snow'],73:['Snöfall','snow'],75:['Kraftigt snöfall','snow'],
+      77:['Snökorn','snow'],80:['Lätta regnskurar','rain'],81:['Regnskurar','rain'],82:['Kraftiga regnskurar','rain'],
+      85:['Snöbyar','snow'],86:['Kraftiga snöbyar','snow'],95:['Åska','thunder'],96:['Åska med hagel','thunder'],99:['Åska med hagel','thunder']};
+    const dirs = ['nord','nordost','ost','sydost','syd','sydväst','väst','nordväst'];
+    const cloud = '<path d="M19 48h27a10 10 0 0 0 0-20h-.6A14 14 0 0 0 18.2 26.2 11 11 0 0 0 19 48z" fill="#fff" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/>';
+    const sun = (cx,cy,r) => { let s=''; for(let i=0;i<8;i++){ const a=i*Math.PI/4, x1=cx+Math.cos(a)*(r+5), y1=cy+Math.sin(a)*(r+5), x2=cx+Math.cos(a)*(r+10), y2=cy+Math.sin(a)*(r+10);
+      s+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#141414" stroke-width="2.5" stroke-linecap="round"/>`; }
+      return s + `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#ffdd00" stroke="#141414" stroke-width="2.5"/>`; };
+    const moon = (cx,cy) => `<path d="M${cx+6} ${cy-13}a14 14 0 1 0 8 20 11 11 0 0 1-8-20z" fill="#fff" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/>`;
+    const lines = (d) => d.map(([x1,y1,x2,y2]) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1f6fb2" stroke-width="2.5" stroke-linecap="round"/>`).join('');
+    const icon = (type, day) => {
+      let b = '';
+      if(type==='clear') b = day ? sun(32,32,11) : moon(30,32);
+      else if(type==='partly') b = (day ? sun(22,22,8) : moon(20,22)) + cloud;
+      else if(type==='cloud') b = cloud;
+      else if(type==='fog') b = cloud.replace('#fff','#eee') + '<g stroke="#141414" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="54" x2="46" y2="54"/><line x1="20" y1="60" x2="52" y2="60"/></g>';
+      else if(type==='rain') b = cloud + lines([[24,52,21,60],[33,52,30,60],[42,52,39,60]]);
+      else if(type==='snow') b = cloud + '<g fill="#141414"><circle cx="23" cy="56" r="2.2"/><circle cx="33" cy="59" r="2.2"/><circle cx="43" cy="56" r="2.2"/></g>';
+      else if(type==='thunder') b = cloud + '<path d="M34 46l-7 10h6l-3 8 10-12h-6l3-6z" fill="#ffdd00" stroke="#141414" stroke-width="2" stroke-linejoin="round"/>';
+      return `<svg viewBox="0 0 64 64" aria-hidden="true">${b}</svg>`;
+    };
+    const num = (v, d) => v.toLocaleString('sv-SE', {minimumFractionDigits:d, maximumFractionDigits:d});
+    const $ = id => document.getElementById(id);
+
+    function render(d){
+      const c = d.current, [desc, type] = codes[c.weather_code] || ['–','cloud'];
+      $('wx-icon').innerHTML = icon(type, c.is_day === 1);
+      $('wx-temp').innerHTML = Math.round(c.temperature_2m) + '<span class="deg">°</span>';
+      $('wx-desc').textContent = desc;
+      const wet = c.precipitation > 0 || ['rain','snow','thunder'].includes(type);
+      const st = $('wx-status');
+      st.hidden = false;
+      st.className = 'wx-status' + (wet ? ' wet' : '');
+      st.textContent = wet ? 'Nederbörd just nu' : 'Uppehåll just nu';
+      $('wx-feels').innerHTML = Math.round(c.apparent_temperature) + '<span class="deg">°</span>';
+      const dir = dirs[Math.round(c.wind_direction_10m / 45) % 8];
+      $('wx-wind').innerHTML = `<svg class="wx-arrow" viewBox="0 0 20 20" style="transform:rotate(${c.wind_direction_10m + 180}deg)"><path d="M10 2l5 9h-4v7H9v-7H5z" fill="#141414"/></svg>${num(c.wind_speed_10m,1)} m/s <small>från ${dir}</small>`;
+      $('wx-gust').textContent = num(c.wind_gusts_10m,1) + ' m/s';
+      $('wx-precip').textContent = num(c.precipitation,1) + ' mm';
+      const pop = d.hourly && d.hourly.precipitation_probability;
+      $('wx-pop').textContent = pop && pop.length > 1 ? pop[1] + ' %' : '–';
+      $('wx-hum').textContent = c.relative_humidity_2m + ' %';
+      $('wx-updated').textContent = 'Uppdaterad ' + c.time.slice(11,16) + ' · ';
+    }
+    function load(){
+      fetch(url).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+        .then(render)
+        .catch(() => { $('wx-desc').textContent = 'Kunde inte hämta vädret just nu'; });
+    }
+    load();
+    setInterval(load, 10 * 60 * 1000);
+  })();
+</script>
+</body>
+</html>
+
+
+
+

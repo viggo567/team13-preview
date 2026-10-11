@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karting – Team13</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .page-banner::before{content:"";position:absolute;inset:-10px;background:url('images/gsp/gsp-19.jpg') center/cover;filter:blur(4px);}
+  .page-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 100%);}
+  .page-banner .container{position:relative;z-index:2;}
+  .page-banner h1{color:var(--white);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;}
+  .page-banner p{color:#f0f0f0;margin-top:8px;font-size:1.1rem;}
+
+  .subnav{border-bottom:1px solid #e2e2e2;background:var(--white);}
+  .subnav ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 34px;padding:16px 0;}
+  .subnav a{font-weight:700;color:#555;padding:4px 0;border-bottom:3px solid transparent;}
+  .subnav a:hover{color:var(--black);border-bottom-color:var(--yellow);}
+
+  .k-text{color:#333;font-size:1.08rem;line-height:1.75;}
+  .k-text p{margin-bottom:16px;}
+  .k-text a{color:var(--green-dark);font-weight:700;border-bottom:1px solid currentColor;}
+
+  .intro-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
+  .intro-img{width:100%;height:100%;min-height:340px;object-fit:cover;display:block;border-radius:14px;}
+
+  .license-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start;}
+  .link-list{list-style:none;border-top:2px solid var(--black);}
+  .link-list li{border-bottom:1px solid #e2e2e2;}
+  .link-list a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 2px;font-weight:700;font-family:'Rajdhani',sans-serif;}
+  .link-list a span{color:#777;font-weight:500;font-size:.9rem;}
+  .link-list a:hover{color:var(--green-dark);}
+
+  .class-accordion{border-top:2px solid var(--black);}
+  .class-item{border-bottom:1px solid #e2e2e2;scroll-margin-top:110px;}
+  .class-item summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 4px;cursor:pointer;list-style:none;}
+  .class-item summary::-webkit-details-marker{display:none;}
+  .class-item summary .sum-left{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;}
+  .class-item summary h3{font-size:1.3rem;margin:0;}
+  .class-item summary .age-tag{color:var(--green-dark);font-weight:700;font-size:.9rem;white-space:nowrap;}
+  .class-item summary .chev{font-size:1.4rem;font-weight:700;color:#999;transition:transform .2s;flex:none;}
+  .class-item[open] summary .chev{transform:rotate(45deg);}
+  .class-item[open] summary{padding-bottom:10px;}
+  .class-body{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:0 4px 36px;}
+  .class .lead{color:#333;font-size:1.05rem;line-height:1.7;}
+  .class .lead p{margin-bottom:12px;}
+  .class ul.notes{margin:4px 0 12px 20px;color:#333;line-height:1.7;}
+  .specs{width:100%;border-collapse:collapse;align-self:start;}
+  .specs th,.specs td{padding:11px 4px;border-bottom:1px solid #e2e2e2;text-align:left;vertical-align:top;}
+  .specs th{width:130px;color:#777;font-size:.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-top:13px;}
+  .specs td{font-weight:600;}
+  .specs tr:first-child th,.specs tr:first-child td{border-top:none;}
+
+  .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 56px;margin-top:10px;}
+  .links-grid h3{font-size:1.25rem;margin-bottom:6px;}
+
+  @media(max-width:820px){
+    .intro-wrap,.license-wrap{grid-template-columns:1fr;gap:24px;}
+    .class-body{grid-template-columns:1fr;gap:20px;}
+    .intro-img{min-height:240px;}
+    .subnav ul{gap:6px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="badge-note">FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" >Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-banner">
+  <div class="container">
+    <h1>Karting</h1>
+    <p>Bilsportens inträdesport – från 6 år och hela livet ut</p>
+  </div>
+</section>
+
+<div class="subnav" role="navigation" aria-label="På den här sidan">
+  <div class="container">
+    <ul>
+      <li><a href="#kom-igang">Kom igång</a></li>
+      <li><a href="#licens">Regler &amp; licens</a></li>
+      <li><a href="#klasser">Klasser</a></li>
+      <li><a href="#lankar">Länkar</a></li>
+    </ul>
+  </div>
+</div>
+
+<section class="k-section" id="kom-igang">
+  <div class="container intro-wrap">
+    <div>
+      <h2 class="k-title">Kom igång</h2>
+      <div class="k-text">
+        <p>Ronnie Peterson, Richard Göransson, Robert Dahlgren och Lewis Hamilton har en sak gemensamt: deras karriär började en gång med Karting. Bilsportens inträdesport för många unga, och en verklig plantskola för racingtalanger.</p>
+        <p>Du kan börja med Karting redan som 6-åring, även om det då handlar om lek och uppvisning. Tävlingsallvaret kan starta vid 8-års ålder (men behöver inte göra det), och kan sedan hålla på livet ut eftersom det finns en stor variation av klasser. Banor finns nästan överallt, från Haparanda i norr till Malmö i söder. Även om det finns kurvor åt både höger och vänster, är hastigheterna höga och heaten spännande. Ett 30-tal förare startar samtidigt och därför blir det ibland bara centimetrar mellan kartarna – fast det går över 100 km/h på rakorna!</p>
+        <p>Kartingen har många klasser tack vare olika åldrar på förare, men även beroende på ambitionsnivå.</p>
+      </div>
+      <a href="gokartskolan.html" class="btn" style="margin-top:10px;">Till Gokartskolan</a>
+    </div>
+    <img class="intro-img" src="images/gsp/gsp-08.jpg" alt="Kartar i tät klunga på Göteborgs Karting Ring" loading="lazy">
+  </div>
+</section>
+
+<section class="k-section alt" id="licens">
+  <div class="container license-wrap">
+    <div>
+      <h2 class="k-title">Regler &amp; licens</h2>
+      <div class="k-text">
+        <p>För att köra kart behöver du ha licens och en egen kart, plus en del annat. Bästa sättet, både för att bättre förstå vad som behövs och hur man går till väga, är att gå i <a href="gokartskolan.html">gokartskolan</a>.</p>
+        <p>Licenser och tävlingsanmälningar hanteras i LoTS, Svenska Bilsportförbundets licens- och tävlingssystem.</p>
+      </div>
+    </div>
+    <ul class="link-list">
+      <li><a href="gokartskolan.html">Gokartskolan <span>Team13</span></a></li>
+      <li><a href="https://lots.sbf.se/Pages/Login.aspx" target="_blank" rel="noopener">LoTS – Licens- och Tävlingssystem <span>lots.sbf.se</span></a></li>
+      <li><a href="http://www.sbf.se" target="_blank" rel="noopener">Svenska Bilsportförbundet <span>sbf.se</span></a></li>
+      <li><a href="http://www.cikfia.com" target="_blank" rel="noopener">CIK-FIA <span>cikfia.com</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="k-section" id="klasser">
+  <div class="container">
+    <h2 class="k-title">Klasser</h2>
+    <div class="k-text" style="max-width:760px;">
+      <p>Det finns ett antal olika klasser att träna och tävla i. Klicka på en klass för att läsa mer om åldersgränser, motorer och vad som krävs.</p>
+    </div>
+
+    <div class="class-accordion">
+    <details class="class-item" id="cadetti" open>
+      <summary><div class="sum-left"><h3>Cadetti</h3><span class="age-tag">6–10 år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>Klassen för de allra yngsta. Här kör man utbildningsheat och alla som deltar får pris. Man lär sig hur det går till ”på riktigt” genom riktiga starter och genom att alla kartingens regler följs.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>6–10 år</td></tr>
+        <tr><th>Motor</th><td>Raket 60 CD, Raket 95 Cadet, IAME Norswift 60. Slirkoppling och magnapullstart.</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>80 kg, förare + kart</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="formel-micro">
+      <summary><div class="sum-left"><h3>Formel Micro</h3><span class="age-tag">8–10 år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>Den första tävlingsklassen inom karting. Nu börjar man tävla på riktigt!</p>
+        <p>Motorn är en Raket 95 med lägre effekt än i Formel Mini, så att fokus kan ligga på grunderna: att köra i klunga, hålla rätt linje, klara starter och följa flaggor och tävlingsregler. Karten har ett mindre chassi anpassat för barn, med frontspoiler, sidoboxar och bakhjulsskydd.</p>
+        <p>Efter Formel Micro är nästa steg oftast Formel Mini eller Junior 60.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>8–10 år</td></tr>
+        <tr><th>Motor</th><td>Raket 95 Micro med slirkoppling och elstart</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat (minichassi)</td></tr>
+        <tr><th>Bromsar</th><td>Endast bakhjulsbroms</td></tr>
+        <tr><th>Kaross</th><td>Frontspoiler, rattkåpa, sidoboxar och bakhjulsskydd</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>105 kg, förare + kart</td></tr>
+        <tr><th>Nästa steg</th><td>Formel Mini eller Junior 60</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="formel-mini">
+      <summary><div class="sum-left"><h3>Formel Mini</h3><span class="age-tag">10–14 år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>Nu börjar det gå fortare! Man kör med en Raket 95-motor med cirka 10 hk och toppfarter på omkring 90 km/h på vissa banor.</p>
+        <p>Formel Mini körs både i regionala serier och nationella tävlingar. Här börjar föraren på allvar jobba med att hitta tid på varvet, och tillsammans med förälder eller mekaniker lära sig grundinställningar som däcktryck, utväxling och sittposition.</p>
+        <p>När föraren blivit äldre och starkare är nästa steg en 125cc-klass, till exempel Junior 125 eller OK Junior.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>10–14 år</td></tr>
+        <tr><th>Motor</th><td>Raket 95 Mini med slirkoppling och elstart</td></tr>
+        <tr><th>Effekt</th><td>Cirka 10 hk</td></tr>
+        <tr><th>Toppfart</th><td>Omkring 90 km/h</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat (minichassi)</td></tr>
+        <tr><th>Bromsar</th><td>Endast bakhjulsbroms</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>115 kg, förare + kart</td></tr>
+        <tr><th>Nästa steg</th><td>Junior 125 eller OK Junior</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="junior-60">
+      <summary><div class="sum-left"><h3>Junior 60</h3><span class="age-tag">10–13 år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>En populär juniorklass som ger en försmak av karting på internationell nivå.</p>
+        <p>Klassen körs med 60cc-motorer från flera tillverkare, bland annat IAME, TM, Vortex och LKE, och påminner om de 60cc-klasser som körs ute i Europa. Motorerna varvar högt och kräver att föraren håller farten genom kurvorna, vilket gör Junior 60 till en bra skola i körteknik.</p>
+        <p>Junior 60 är ett alternativ till Formel Mini för den som siktar mot internationella klasser. Nästa steg är Junior 125 eller OK Junior.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>10–13 år</td></tr>
+        <tr><th>Motor</th><td>Nationellt homologerad 60cc-motor med slirkoppling och elstart</td></tr>
+        <tr><th>Motorfabrikat</th><td>Bland annat IAME, TM, Vortex och LKE</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat (minichassi)</td></tr>
+        <tr><th>Bromsar</th><td>Endast bakhjulsbroms</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>115 kg, förare + kart</td></tr>
+        <tr><th>Nästa steg</th><td>Junior 125 eller OK Junior</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="junior-125">
+      <summary><div class="sum-left"><h3>Junior 125</h3><span class="age-tag">12–15 år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>En nationell klass där man kör med olika motoralternativ med stort chassi.</p>
+        <p>Förare som fyller 12 år under kalenderåret ska uppnå följande kriterier:</p>
+        <ul class="notes">
+          <li>Förarens vikt (inkl. personlig utrustning) ska minst vara 40 kg under tävlingen.</li>
+          <li>Förare ska varit innehavande av tävlingslicens Karting under minst föregående år.</li>
+          <li>Debutlicens är inte tillåtet.</li>
+          <li>Uppfyller man inte ovanstående kriterier gäller 13-års åldersgräns.</li>
+        </ul>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>12–15 år</td></tr>
+        <tr><th>Motor</th><td>Vattenkyld 125cc med slirkoppling och elstart</td></tr>
+        <tr><th>Motorfabrikat</th><td>ROTAX FR 125 Junior, IAME X30 Junior</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Vikt</th><td>Minimum 150 kg</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="senior-125">
+      <summary><div class="sum-left"><h3>Senior 125</h3><span class="age-tag">14+ år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>En nationell klass där man kör med olika motoralternativ.</p>
+        <p>Senior 125 är en oväxlad klass med vattenkylda 125cc-motorer på runt 30 hk, stort chassi och toppfarter uppemot 120 km/h. Tack vare slirkoppling och elstart är karten enkel att hantera, samtidigt som farten är hög. Klassen passar både ungdomar som gått vidare från juniorklasserna och vuxna som vill köra fort utan växellåda.</p>
+        <p>För att motoralternativen ska kunna tävla på lika villkor har varje motor en egen minimivikt.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>14 år och uppåt</td></tr>
+        <tr><th>Motor</th><td>Vattenkyld 125cc med slirkoppling och elstart</td></tr>
+        <tr><th>Motorfabrikat</th><td>Rotax Max Senior, Vortex ROK GP 125cc och IAME X30</td></tr>
+        <tr><th>Effekt</th><td>Runt 30 hk</td></tr>
+        <tr><th>Toppfart</th><td>Uppemot 120 km/h</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Bromsar</th><td>Endast bakhjulsbroms</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>Beroende på motor, t.ex. Rotax Max Senior/EVO 162 kg och Vortex ROK GP 166 kg (förare + kart). Övriga enligt KA-T 1.1.5.</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="ok">
+      <summary><div class="sum-left"><h3>OK och OK Junior</h3><span class="age-tag">12+ år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>OK Junior och OK har både nationella och internationella mästerskapstävlingar. Här följer man CIK/FIA:s internationella reglemente.</p>
+        <p>OK Junior 12–14 år (ingen övre åldersgräns vid nationella tävlingar):</p>
+        <ul class="notes">
+          <li>Förarens vikt (inkl. personlig utrustning) ska minst vara 35 kg under tävling.</li>
+          <li>Förare som under kalenderåret fyller 12 år ska inneha tävlingslicens Internationell C-Junior.</li>
+        </ul>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>OK Junior 12–14 år<br>OK 14 år och uppåt</td></tr>
+        <tr><th>Motor</th><td>125cc vattenkyld motor med direktdrift enligt CIK-FIA homologering</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Vikt</th><td>OK Junior minimum 140 kg<br>OK minimum 150 kg</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="rotax">
+      <summary><div class="sum-left"><h3>Rotax Max Junior, Rotax Max Senior, Rotax Max DD2</h3><span class="age-tag">12+ år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>En serie klasser med motorer från Rotax. Rotax Max Junior/Senior körs endast i RMC-deltävlingar. Rotax Max DD2 körs i nationella tävlingar. Vinnaren i den svenska RMC-serien blir direktkvalificerad och får en gratisbiljett till det prestigefyllda Rotax Grand Finals som varje år går på olika platser i världen. Rotax DD2 är en tvåväxlad klass som du får köra fr o m 25 år. Rotaxklasserna är promotionklasser där tekniskt reglemente tillhandahålls av Radne Motor AB.</p>
+        <p>DD2 med åldersgräns 18–31 infördes på prov 2021 och kan samköras med DD2 Masters, som återfår sin tidigare åldersgräns om 32 år och uppåt. Vid samkörning med DD2 Masters får även DD2 köras vid nationell tävling.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>Junior 12–16 år<br>Max 15 år och uppåt<br>DD2 18–31 år, DD2 Masters 32 år och uppåt</td></tr>
+        <tr><th>Motor</th><td>Entypsmotorer av fabrikat Rotax</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Däck</th><td>Mojo</td></tr>
+      </table>
+      </div>
+    </details>
+
+    <details class="class-item" id="kz2">
+      <summary><div class="sum-left"><h3>KZ2</h3><span class="age-tag">15+ år</span></div><span class="chev">+</span></summary>
+      <div class="class-body">
+        <div class="lead">
+        <p>Internationella kungaklassen med snabbaste varvtiderna och toppfarter på över 140 km/h! Den största klassen med sex växlar.</p>
+        <p>Motorn ger runt 45–50 hk och växlas med en sekventiell spak vid ratten. Karten har bromsar på alla fyra hjulen, vilket gör att man kan bromsa mycket senare in i kurvorna. Till skillnad från de oväxlade klasserna körs KZ2 med stående start, där föraren själv släpper kopplingen när ljusen slocknar.</p>
+        <p>KZ2 kräver både fysisk styrka och erfarenhet och passar förare som redan kört en 125cc-klass.</p>
+      </div>
+        <table class="specs">
+        <tr><th>Ålder</th><td>Från 15 år och uppåt</td></tr>
+        <tr><th>Motor</th><td>6-växlad vattenkyld 125cc-motor</td></tr>
+        <tr><th>Effekt</th><td>Runt 45–50 hk</td></tr>
+        <tr><th>Toppfart</th><td>Över 140 km/h</td></tr>
+        <tr><th>Växellåda</th><td>6 växlar, sekventiell handväxling</td></tr>
+        <tr><th>Bromsar</th><td>Fyrhjulsbroms</td></tr>
+        <tr><th>Start</th><td>Stående start</td></tr>
+        <tr><th>Tekniska regler</th><td>Enligt CIK-FIA</td></tr>
+        <tr><th>Chassi</th><td>Fritt till fabrikat</td></tr>
+        <tr><th>Däck</th><td>Nationellt homologerade enhetsdäck</td></tr>
+        <tr><th>Minimivikt</th><td>175 kg, förare + kart</td></tr>
+      </table>
+      </div>
+    </details>
+    </div>
+  </div>
+</section>
+
+<section class="k-section alt" id="lankar">
+  <div class="container">
+    <h2 class="k-title">Länkar</h2>
+    <div class="k-text" style="max-width:760px;">
+      <p>Här har vi samlat länkar till förbund, klubbar, tävlingsserier och handlare inom karting.</p>
+    </div>
+    <div class="links-grid">
+      <div>
+        <h3>Förbund</h3>
+        <ul class="link-list">
+          <li><a href="http://www.fia.com" target="_blank" rel="noopener">Fédération Internationale de l’Automobile (FIA) <span>fia.com</span></a></li>
+          <li><a href="http://www.cikfia.com" target="_blank" rel="noopener">Commission Internationale de Karting (CIK-FIA) <span>cikfia.com</span></a></li>
+          <li><a href="http://www.rf.se" target="_blank" rel="noopener">Riksidrottsförbundet <span>rf.se</span></a></li>
+          <li><a href="http://www.sbf.se" target="_blank" rel="noopener">Svenska Bilsportförbundet <span>sbf.se</span></a></li>
+          <li><a href="http://gbf.pks-consulting.se" target="_blank" rel="noopener">Göteborgs Bilsportförbund <span>gbf.pks-consulting.se</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Klubbar</h3>
+        <ul class="link-list">
+          <li><a href="http://www.bohusracing.com/" target="_blank" rel="noopener">Bohus Racing <span>se Uddevalla</span></a></li>
+          <li><a href="http://www.uddevallakarting.se/" target="_blank" rel="noopener">Uddevalla Kartingklubb <span>uddevallakarting.se</span></a></li>
+          <li><a href="http://www.fmckboras.se" target="_blank" rel="noopener">Fmck Borås <span>fmckboras.se</span></a></li>
+          <li><a href="https://www.jkckarting.se/" target="_blank" rel="noopener">Jönköpings Karting Club <span>jkckarting.se</span></a></li>
+          <li><a href="http://www.hbgkk.se" target="_blank" rel="noopener">Helsingborgs Karting Klubb <span>hbgkk.se</span></a></li>
+          <li><a href="https://www.svenskalag.se/ksklippan" target="_blank" rel="noopener">Kartingsällskapet Klippan <span>svenskalag.se</span></a></li>
+          <li><a href="http://www.jarfallamk.se" target="_blank" rel="noopener">Järfälla Motorklubb <span>jarfallamk.se</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Kartingserier</h3>
+        <ul class="link-list">
+          <li><a href="http://kcv.nu" target="_blank" rel="noopener">Kart Cup Väst <span>kcv.nu</span></a></li>
+          <li><a href="http://www.skcc.se/" target="_blank" rel="noopener">SKCC <span>skcc.se</span></a></li>
+          <li><a href="http://www.mkr-karting.se/" target="_blank" rel="noopener">MKR <span>mkr-karting.se</span></a></li>
+          <li><a href="https://www.iame-motorsport.com/" target="_blank" rel="noopener">IAME Motorsport <span>iame-motorsport.com</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Handlare</h3>
+        <ul class="link-list">
+          <li><a href="http://www.radne.se" target="_blank" rel="noopener">Radne Motor AB <span>radne.se</span></a></li>
+          <li><a href="http://www.wardracing.se" target="_blank" rel="noopener">Ward Racing <span>wardracing.se</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Övrigt</h3>
+        <ul class="link-list">
+          <li><a href="https://lots.sbf.se/Pages/Login.aspx" target="_blank" rel="noopener">LoTS – Licens- och Tävlingssystem hos SBF <span>lots.sbf.se</span></a></li>
+          <li><a href="http://www.karting.co.uk/KandK/Tech/KartSetup.html" target="_blank" rel="noopener">Tech Tips <span>karting.co.uk</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+  document.querySelectorAll('.class-item').forEach(function(item){
+    item.addEventListener('toggle', function(){
+      if(item.open){
+        document.querySelectorAll('.class-item[open]').forEach(function(other){
+          if(other !== item) other.removeAttribute('open');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+

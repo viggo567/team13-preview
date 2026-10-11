@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gokartskolan – Team13</title>
+<link rel="icon" href="images/logo-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .page-banner::before{content:"";position:absolute;inset:-10px;background:url('images/gsp/gsp-44.jpg') center/cover;filter:blur(4px);}
+  .page-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 100%);}
+  .page-banner .container{position:relative;z-index:2;}
+  .page-banner h1{color:var(--white);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;}
+  .page-banner p{color:#f0f0f0;margin-top:8px;font-size:1.1rem;}
+
+  .subnav{border-bottom:1px solid #e2e2e2;background:var(--white);}
+  .subnav ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 34px;padding:16px 0;}
+  .subnav a{font-weight:700;color:#555;padding:4px 0;border-bottom:3px solid transparent;}
+  .subnav a:hover{color:var(--black);border-bottom-color:var(--yellow);}
+
+  .k-text{color:#333;font-size:1.08rem;line-height:1.75;}
+  .k-text p{margin-bottom:16px;}
+  .k-text a{color:var(--green-dark);font-weight:700;border-bottom:1px solid currentColor;}
+
+  .intro-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
+  .intro-img{width:100%;height:100%;min-height:380px;max-height:560px;object-fit:cover;object-position:center 30%;display:block;border-radius:14px;}
+  .learn-list{list-style:none;columns:2;column-gap:30px;margin:4px 0 22px;border-top:1px solid #e2e2e2;}
+  .learn-list li{break-inside:avoid;padding:11px 2px;border-bottom:1px solid #e2e2e2;font-weight:700;font-family:'Rajdhani',sans-serif;font-size:1.1rem;}
+  .learn-list li::before{content:"";display:inline-block;width:10px;height:10px;background:var(--yellow);margin-right:12px;vertical-align:1px;}
+
+  .course-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start;}
+  .groups{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:26px;}
+  .group{border-top:3px solid var(--yellow);padding-top:16px;}
+  .group h3{font-size:1.25rem;margin-bottom:4px;}
+  .group .age{font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;color:var(--green-dark);line-height:1.1;}
+  .price{display:flex;align-items:baseline;gap:14px;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;padding:16px 0;margin-bottom:18px;}
+  .price span{color:#777;font-size:.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+  .price strong{font-family:'Rajdhani',sans-serif;font-size:2.4rem;line-height:1;}
+  .small-note{color:#555;font-size:.95rem;}
+  .specs{width:100%;border-collapse:collapse;}
+  .specs th,.specs td{padding:12px 4px;border-bottom:1px solid #e2e2e2;text-align:left;vertical-align:top;}
+  .specs th{width:150px;color:#777;font-size:.82rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-top:14px;}
+  .specs td{font-weight:600;}
+  .specs tr:first-child th,.specs tr:first-child td{border-top:1px solid #e2e2e2;}
+
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:56px;margin-top:10px;}
+  .step{border-top:3px solid var(--yellow);padding-top:18px;}
+  .step .num{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);}
+  .step h3{font-size:1.45rem;margin:2px 0 10px;}
+  .step p{color:#333;line-height:1.7;margin-bottom:12px;}
+  .step ul{margin:0 0 12px 18px;color:#333;line-height:1.7;}
+  .step .meta{border-top:1px solid #e2e2e2;padding-top:10px;font-weight:700;color:var(--black);}
+  .after{margin-top:46px;border-top:1px solid #e2e2e2;padding-top:26px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}
+  .after p{color:#333;font-size:1.05rem;max-width:720px;}
+
+  .signup-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:start;}
+  .mail-line{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;margin:6px 0 20px;}
+  .mail-line a{color:var(--green-dark);border-bottom:2px solid var(--yellow);}
+  .obs{border-left:4px solid var(--yellow);padding:4px 0 4px 16px;color:#333;margin:18px 0;}
+  .welcome{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;font-style:italic;margin-top:10px;}
+  form.signup{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--white);padding:30px;border:1px solid #e2e2e2;}
+  form.signup .full{grid-column:1/-1;}
+  form.signup label{display:grid;gap:6px;font-size:.8rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;}
+  form.signup input,form.signup select,form.signup textarea{padding:12px 13px;border:1px solid #ccc;border-radius:4px;font-family:inherit;font-size:.95rem;background:var(--white);text-transform:none;letter-spacing:0;font-weight:500;color:var(--black);}
+  form.signup input:focus,form.signup select:focus,form.signup textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(30,122,52,.12);}
+  form.signup .btn{border:none;cursor:pointer;border-radius:4px;justify-self:start;}
+  form.signup .hint{grid-column:1/-1;font-size:.85rem;color:#777;}
+
+  @media(max-width:980px){.steps{grid-template-columns:1fr;gap:30px;}}
+  @media(max-width:820px){
+    .intro-wrap,.course-wrap,.signup-wrap{grid-template-columns:1fr;gap:28px;}
+    .intro-img{min-height:240px;max-height:340px;}
+    .subnav ul{gap:6px 20px;}
+    .learn-list{columns:1;}
+    form.signup{grid-template-columns:1fr;padding:22px;}
+  }
+  @media(max-width:420px){.groups{grid-template-columns:1fr;}}
+</style>
+</head><body>
+
+<div class="badge-note">FÖRHANDSVISNING / EXEMPEL — ej den riktiga sidan, endast för granskning</div>
+<header>
+  <div class="container navwrap">
+    <a href="index.html" class="logo">
+      <img src="images/logo-transparent.png" alt="Team13 logga">
+    </a>
+    <div class="navright">
+    <button class="burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+    <nav><ul id="navlist">
+      <li><a href="index.html" >Hem</a></li>
+      <li><a href="nyheter.html">Nyheter</a></li>
+      <li class="has-dropdown"><a href="karting.html">Karting</a>
+        <ul class="dropdown-menu">
+          <li><a href="karting.html#kom-igang">Kom igång</a></li>
+          <li><a href="karting.html#licens">Regler &amp; licens</a></li>
+          <li><a href="karting.html#klasser">Klasser</a></li>
+          <li><a href="karting.html#lankar">Länkar</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="om-klubben.html">Klubben</a>
+        <ul class="dropdown-menu">
+          <li><a href="om-klubben.html">Om klubben</a></li>
+          <li><a href="forare.html">Förare</a></li>
+          <li><a href="sponsorer.html">Sponsorer</a></li>
+        </ul>
+      </li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gokartskolan.html">Gokartskolan</a></li>
+      <li class="has-dropdown"><a href="tavlingar.html">Tävlingar</a>
+        <ul class="dropdown-menu">
+          <li><a href="tavlingar.html#kalender">Tävlingskalender</a></li>
+          <li><a href="tavlingar.html#resultat">Resultat</a></li>
+          <li><a href="tavlingar.html#praktiskt">Depåplats</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown"><a href="traning.html">Träning</a>
+        <ul class="dropdown-menu">
+          <li><a href="traning.html">Träningstider</a></li>
+          <li><a href="kontakt.html">Anmälan</a></li>
+        </ul>
+      </li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="kontakt.html" class="cta-btn">Bli medlem</a></li>
+    </ul></nav>
+    <a href="kontakt.html" class="cta-btn cta-btn-desktop">Bli medlem</a>
+    </div>
+  </div>
+</header>
+<section class="page-banner">
+  <div class="container">
+    <h1>Gokartskolan</h1>
+    <p>Lär dig grunderna i gokartsporten – för barn från 7 år och vuxna</p>
+  </div>
+</section>
+
+<div class="subnav" role="navigation" aria-label="På den här sidan">
+  <div class="container">
+    <ul>
+      <li><a href="#om-skolan">Om skolan</a></li>
+      <li><a href="#kursen">Kursen</a></li>
+      <li><a href="#upplagg">Upplägg</a></li>
+      <li><a href="#anmalan">Anmälan</a></li>
+    </ul>
+  </div>
+</div>
+
+<section class="k-section" id="om-skolan">
+  <div class="container intro-wrap">
+    <div>
+      <h2 class="k-title">Lär dig köra gokart</h2>
+      <div class="k-text">
+        <p>I GKRC Team13:s gokartskola får du lära dig grunderna i gokartsporten: att bromsa på rätt sätt, accelerera, hitta rätt vägval i kurvorna och göra säkra omkörningar. Du får också lära dig vilka regler som gäller, hur man sköter om sin gokart och hur det går till på träning och tävling.</p>
+        <p>Våra kunniga instruktörer lär dig bland annat:</p>
+      </div>
+      <ul class="learn-list">
+        <li>Körteknik</li>
+        <li>Spårval</li>
+        <li>Säkerhetsregler</li>
+        <li>Flaggsignaler</li>
+        <li>Att tävla</li>
+      </ul>
+      <div class="k-text">
+        <p>Efter avslutad kurs skriver du ett prov som berättigar till tävlingslicens. Sedan kan du fortsätta med egen gokart på klubbens <a href="traning.html">träningstillfällen</a>.</p>
+      </div>
+      <a href="#anmalan" class="btn" style="margin-top:6px;">Anmäl intresse</a>
+    </div>
+    <img class="intro-img" src="images/gsp/gsp-52.jpg" alt="Ung förare med hjälm på Göteborgs Karting Ring" loading="lazy">
+  </div>
+</section>
+
+<section class="k-section alt" id="kursen">
+  <div class="container course-wrap">
+    <div>
+      <h2 class="k-title">Kursen</h2>
+      <div class="k-text"><p>Kurserna är uppdelade i två grupper:</p></div>
+      <div class="groups">
+        <div class="group"><h3>Barn &amp; ungdom</h3><div class="age">7–13 år</div></div>
+        <div class="group"><h3>Vuxen</h3><div class="age">från 14 år</div></div>
+      </div>
+      <div class="price"><span>Pris</span><strong>1 500 kr</strong></div>
+      <p class="small-note">Åldern gäller det år du fyller.</p>
+    </div>
+    <table class="specs">
+      <tr><th>Kurstillfällen</th><td>3 tillfällen à 2,5 timmar</td></tr>
+      <tr><th>Innehåll</th><td>Blandning av teori och praktisk körträning</td></tr>
+      <tr><th>Informationskväll</th><td>1 tillfälle om teknik och allt som har med sporten att göra</td></tr>
+      <tr><th>Avslutning</th><td>Prov som berättigar till tävlingslicens</td></tr>
+      <tr><th>Säsong</th><td>Vinterhalvåret</td></tr>
+      <tr><th>Kursstart</th><td>När respektive grupp blivit fulltecknad</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="k-section" id="upplagg">
+  <div class="container">
+    <h2 class="k-title">Upplägg</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">3 tillfällen</span>
+        <h3>Kurstillfällen</h3>
+        <p>Tre kurstillfällen à 2,5 timmar med en blandning av teori och praktisk körträning. Du lär dig grunderna i karting, som regler och körteknik.</p>
+        <p>Kursen avslutas med ett prov som berättigar till tävlingslicens.</p>
+        <div class="meta">3 × 2,5 timmar</div>
+      </div>
+      <div class="step">
+        <span class="num">1 tillfälle</span>
+        <h3>Informationskväll</h3>
+        <p>En teorikväll om teknik och allt som har med sporten att göra. Innehållet är bland annat:</p>
+        <ul>
+          <li>Kartinghistoria</li>
+          <li>Klubbinformation om GKRC Team13</li>
+          <li>Vilken utrustning behöver jag?</li>
+          <li>Vad ska jag tänka på när jag köper gokart?</li>
+          <li>Kostnader</li>
+          <li>Vad innebär det att träna och tävla?</li>
+          <li>Frågestund</li>
+        </ul>
+        <div class="meta">Ingår i kursen</div>
+      </div>
+    </div>
+    <div class="after">
+      <p>Efter gokartskolan tar du licens och kan börja köra med egen kart. Läs mer om de olika klasserna för att se vilken som passar dig.</p>
+      <a href="karting.html#klasser" class="btn">Se klasserna</a>
+    </div>
+  </div>
+</section>
+
+<section class="k-section alt" id="anmalan">
+  <div class="container signup-wrap">
+    <div>
+      <h2 class="k-title">Anmälan</h2>
+      <div class="k-text"><p>Anmälan görs till</p></div>
+      <p class="mail-line"><a href="mailto:gokartskolan@gokart.se">gokartskolan@gokart.se</a></p>
+      <div class="k-text"><p>Du kan också fylla i intresseanmälan, så återkommer vi när det är dags för nästa kurs. Anmälan är inte bindande.</p></div>
+      <p class="obs"><strong>OBS!</strong> Kurserna hålls under vinterhalvåret och startar när respektive grupp blivit fulltecknad.</p>
+      <p class="welcome">Välkomna!</p>
+    </div>
+    <form class="signup" onsubmit="event.preventDefault(); alert('Detta är en exempelsida – formuläret skickar inget än.');">
+      <label>Namn *<input type="text" required></label>
+      <label>Målsman<input type="text" placeholder="Om du är under 18 år"></label>
+      <label class="full">Postadress *<input type="text" required></label>
+      <label>Telefon *<input type="tel" required></label>
+      <label>E-post *<input type="email" required></label>
+      <label>Ålder *<input type="number" min="5" max="99" required></label>
+      <label>Längd (cm) *<input type="number" min="80" max="230" required></label>
+      <label class="full">Grupp *
+        <select required>
+          <option value="">Välj grupp</option>
+          <option>Barn &amp; ungdom, 7–13 år</option>
+          <option>Vuxen, från 14 år</option>
+        </select>
+      </label>
+      <label class="full">Meddelande<textarea rows="4"></textarea></label>
+      <span class="hint">* Obligatoriska fält</span>
+      <button class="btn" type="submit">Skicka intresseanmälan</button>
+    </form>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="yellow" style="font-size:1.3rem;">Team13</div>
+    <div class="fnav">
+      <a href="index.html">Hem</a><a href="nyheter.html">Nyheter</a><a href="om-klubben.html">Om klubben</a>
+      <a href="traning.html">Träning</a><a href="forare.html">Förare</a><a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="fine">© 2026 Team13 – Göteborg Karting &amp; Racing Club · Del av Göteborgs Gokartcenter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burger').addEventListener('click', function(){
+    document.getElementById('navlist').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
+
+
+
