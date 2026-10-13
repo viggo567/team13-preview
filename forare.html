@@ -8,6 +8,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  .page-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .page-banner::before{content:"";position:absolute;inset:-10px;background:url('images/own/forare-grupp.jpg') center 35%/cover;filter:blur(4px);}
+  .page-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 100%);}
+  .page-banner .container{position:relative;z-index:2;}
+  .page-banner h1{color:var(--white);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;}
+  .page-banner p{color:#f0f0f0;margin-top:8px;font-size:1.1rem;}
+
+  .k-text{color:#333;font-size:1.08rem;line-height:1.75;}
+  .k-text p{margin-bottom:16px;}
+
+  .driver-wrap{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;}
+  .driver-img{width:100%;border-radius:14px;display:block;object-fit:cover;}
+  .credit{color:#888;font-size:.82rem;margin-top:8px;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 8px;}
+  .stat{border-top:3px solid var(--yellow);padding-top:14px;}
+  .stat strong{display:block;font-family:'Rajdhani',sans-serif;font-size:2.4rem;font-weight:700;line-height:1;color:var(--green-dark);}
+  .stat span{color:#555;font-size:.9rem;}
+
+  @media(max-width:820px){
+    .driver-wrap{grid-template-columns:1fr;gap:28px;}
+  }
+  @media(max-width:480px){.stat-row{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
 
@@ -61,10 +86,32 @@
   </div>
 </header>
 
-<section class="placeholder-page">
+<section class="page-banner">
   <div class="container">
     <h1>Förare</h1>
-    <p>Den här sidan byggs ut i nästa steg.</p>
+    <p>Från nybörjare i Gokartskolan till SM- och EM-förare</p>
+  </div>
+</section>
+
+<section class="k-section" style="padding:70px 0;">
+  <div class="container driver-wrap">
+    <div>
+      <img src="images/own/forare-grupp.jpg" alt="Team13s förare samlade på startlinjen" class="driver-img">
+      <p class="credit">Foto: Team13</p>
+    </div>
+    <div>
+      <h2 class="k-title">Våra förare</h2>
+      <div class="k-text">
+        <p>Team13 samlar förare i alla åldrar och på alla nivåer – från de som precis tagit sina första varv i Gokartskolan till rutinerade tävlingsförare som kör SM, NM och internationella mästerskap. Gemensamt för alla är glädjen i att köra fort och viljan att utvecklas tillsammans.</p>
+        <p>Klubben har genom åren fostrat flera svenska mästare och till och med en världsmästare, och många av dagens förare fortsätter den traditionen på bland annat Göteborgs Stora Pris varje år.</p>
+        <p>Vill du tävla för Team13 eller bara komma igång med karting? Börja i <a href="gokartskolan.html" style="color:var(--green-dark);font-weight:700;border-bottom:1px solid currentColor;">Gokartskolan</a> eller hör av dig via <a href="kontakt.html" style="color:var(--green-dark);font-weight:700;border-bottom:1px solid currentColor;">Kontakt</a>.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><strong>1</strong><span>Världsmästare genom åren</span></div>
+        <div class="stat"><strong>Alla</strong><span>Åldrar &amp; ambitionsnivåer</span></div>
+        <div class="stat"><strong>2–5</strong><span>Tävlingar om året</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
