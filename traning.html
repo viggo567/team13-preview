@@ -37,6 +37,17 @@
   .req-card h4{margin-bottom:8px;color:var(--green-dark);}
   .req-card p{color:#444;font-size:.95rem;}
   @media(max-width:820px){ .training-wrap{grid-template-columns:1fr;} }
+
+  .vakt-box{background:var(--gray);border-radius:12px;padding:22px 24px;margin-top:22px;}
+  .vakt-week{font-family:'Rajdhani',sans-serif;font-weight:700;color:#777;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .vakt-names{display:flex;flex-wrap:wrap;gap:22px;margin:10px 0 16px;}
+  .vakt-card{border-left:3px solid var(--yellow);padding-left:12px;}
+  .vakt-card h4{font-size:1.05rem;margin-bottom:1px;}
+  .vakt-card .phone{color:#777;font-size:.85rem;}
+  .vakt-event{border-left:4px solid var(--yellow);padding:8px 14px;color:#333;background:var(--white);border-radius:4px;margin-bottom:14px;font-size:.92rem;}
+  .vakt-off{color:#555;font-size:.95rem;padding:4px 0 10px;}
+  .vakt-pdf-link{display:inline-block;font-weight:700;color:var(--green-dark);border-top:1px solid #e2e2e2;padding-top:14px;width:100%;}
+  .vakt-pdf-link:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -112,8 +123,11 @@
           <tr><td>Torsdag</td><td>16:00–21:00</td></tr>
           <tr><td>Söndag</td><td>10:00–16:00</td></tr>
         </table>
-        <div class="note-box">
-          Helgträningen körs numera på söndag istället för lördag.
+
+        <div class="vakt-box" id="vaktBox">
+          <div class="vakt-week" id="vaktWeekLabel">Laddar…</div>
+          <div id="vaktContent"></div>
+          <a href="assets/traningsvakter.pdf" class="vakt-pdf-link" download>⬇ Ladda ner hela träningsvaktslistan (PDF)</a>
         </div>
       </div>
       <div class="training-img">
@@ -179,6 +193,86 @@
   document.getElementById('burger').addEventListener('click', function(){
     document.getElementById('navlist').classList.toggle('open');
   });
+</script>
+
+<script>
+  // Träningsvaktslista – namn + maskerade telefonnummer (fullständiga nummer finns i PDF:en)
+  var vaktSchema = {
+    14: [["Mats Beckman","072-371••••"],["Matilda Machacek","0730-44••••"]],
+    15: [["Jesper Magnusson","0733-30••••"]],
+    16: [["Mario Majdandzic","0707-54••••"],["Nikhil Baliga","0790-39••••"]],
+    17: [["Nordbäck","0733-52••••"],["Lars Klintell","0706-65••••"]],
+    18: [["Sara Lindmark","0708-36••••"]],
+    19: [["Thorne","0703-56••••"],["Bondarov Naperotti","0703-28••••"]],
+    20: [["Patrik Strindberg","0709-28••••"]],
+    21: [["Sofia Liedholm","0703-36••••"],["Fredrik Hallgren","0773-05••••"]],
+    22: [["Fredrik Mellberg","0725-38••••"],["Karen Kirakossian","0702-44••••"]],
+    23: [["Hannah","0702-90••••"],["Patel","0706-30••••"]],
+    24: [["Jesper Samuelsson","0708-25••••"],["Erik Olofsson","0709-79••••"]],
+    25: [["Robert Isjöjärvi","0728-95••••"],["Per Landfors","0723-71••••"]],
+    26: [["Tomasz Boczek","0739-02••••"]],
+    27: [["Krister Ahlinquist","0738-32••••"],["Tellstedt","0739-51••••"]],
+    28: [["Frostasson","0768-90••••"],["Elias Hagen","0733-98••••"]],
+    29: [["Charlie Cronborg","0708-60••••"],["Carl Björklund","0729-32••••"]],
+    30: [["Mats-Axel Johansson","0705-64••••"],["Emanuel Roosvald","0704-60••••"]],
+    31: [["Harri Ekman","0766-27••••"],["Mats Johansson","0729-93••••"]],
+    32: [["Tomas Majewski","0737-55••••"]],
+    33: [["Richard Plaketti","0736-54••••"],["William Antonsson","0706-41••••"]],
+    34: [["John Holmberg","0725-98••••"],["Mikael","0739-02••••"]],
+    35: [["Jan Inge Karlsson","0707-88••••"],["Nyvik","0765-85••••"]],
+    36: [["Pontus Bergström","0722-40••••"],["Tomas Tromber","0730-60••••"]],
+    37: [["Niklas Gustavsson","0703-24••••"],["Mårten Nilsson","0735-25••••"]],
+    38: [["Patrik Pettersson","0709-71••••"],["Patrik Hiljemark","0706-35••••"]],
+    39: [["Andreas Wessberg","0733-82••••"],["Magnus Andersson","0733-16••••"]],
+    40: [["Richard Broman","0701-71••••"],["Jakob Brusewitz","0736-31••••"]],
+    41: [["Stig Fjell","0705-89••••"],["Pierre Runic","0737-69••••"]],
+    42: [["Hellegreen","0723-98••••"],["Mike Denny","0728-85••••"]],
+    43: [["Axel Bernhardsson","0738-40••••"],["Grönberg","0705-71••••"]],
+    44: [["Urban Lundin","0735-07••••"],["Magnus Feuer","0734-47••••"]]
+  };
+  // Veckor med extra funktionärsbehov p.g.a. tävling – träningsvakten gäller fortfarande
+  var vaktEvents = {
+    23: "Kart Cup Väst körs denna vecka – extra funktionärer behövs utöver ordinarie träningsvakt.",
+    36: "Göteborgs Stora Pris körs denna vecka – extra funktionärer behövs utöver ordinarie träningsvakt."
+  };
+
+  function getIsoWeek(date){
+    var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    var dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  }
+
+  function renderVakt(){
+    var now = new Date();
+    var week = getIsoWeek(now);
+    var weekLabel = document.getElementById('vaktWeekLabel');
+    var content = document.getElementById('vaktContent');
+
+    if(week < 14 || week > 44){
+      weekLabel.textContent = 'Utanför säsong';
+      content.innerHTML = '<div class="vakt-off">Säsongen är slut för i år (vecka 14–44). Ny träningsvaktslista kommer nästa år.</div>';
+      return;
+    }
+
+    weekLabel.textContent = 'Vecka ' + week;
+    var people = vaktSchema[week] || [];
+    var html = '';
+    if(vaktEvents[week]){
+      html += '<div class="vakt-event">⚠️ ' + vaktEvents[week] + '</div>';
+    }
+    if(people.length){
+      html += '<div class="vakt-names">' + people.map(function(p){
+        return '<div class="vakt-card"><h4>' + p[0] + '</h4><div class="phone">' + p[1] + '</div></div>';
+      }).join('') + '</div>';
+    } else {
+      html += '<div class="vakt-off">Ingen träningsvakt inlagd för den här veckan ännu – kontakta klubben.</div>';
+    }
+    content.innerHTML = html;
+  }
+
+  renderVakt();
 </script>
 </body>
 </html>
